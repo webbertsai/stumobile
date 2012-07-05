@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -13,13 +12,13 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.view.ContextThemeWrapper;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.TextView;
 
 public class StumobileActivity extends Activity {
 	LinearLayout main;
@@ -32,39 +31,38 @@ public class StumobileActivity extends Activity {
 		setContentView(R.layout.main);
 		findViews();
 		Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+		Bitmap bmp2 = BitmapFactory.decodeResource(getResources(), R.drawable.administrative);
 
-		main.addView(addView(bmp, 80, 400, new OnClickListener() {
-			public void onClick(View v) {
-				// startActivity(new Intent(StumobileActivity.this, aaa.class));
-				final Dialog myDialog = new Dialog(StumobileActivity.this, R.style.dialog);
-				myDialog.setContentView(R.layout.dialog);
-				myDialog.show();
-				
+		// setData(80, 400, bmp, bmp2, "行政大樓");
+		// addView((Bitmap) mData.get(0).get("bmp"), (Integer)
+		// mData.get(0).get("scaleW"), (Integer) mData.get(0).get("scaleH"),
+		// (OnClickListener) mData
+		// .get(0).get("OnClickListener"));
 
-			}
-		}));
+		main.addView(addView(bmp, 80, 400, bmp2, "行政大樓"));
+
 	}
 
-	private void setData() {
+	private void setData(int x, int y, Bitmap icon, final Bitmap main, final String content) {
 		HashMap<String, Object> data = new HashMap<String, Object>();
-		Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
 		float scaleW = getwidthPixels() / 480.0f;
 		float scaleH = getheightPixels() / 800.0f;
-		data.put("scaleW", scaleW);
-		data.put("scaleH", scaleH);
-		data.put("bmp", bmp);
+		data.put("scaleW", scaleW * x);
+		data.put("scaleH", scaleH * y);
+		data.put("bmp", icon);
 		data.put("OnClickListener", new OnClickListener() {
 			public void onClick(View v) {
-				final Dialog myDialog = new Dialog(StumobileActivity.this, android.R.style.Theme_Translucent_NoTitleBar);
+				final Dialog myDialog = new Dialog(StumobileActivity.this, R.style.dialog);
 				myDialog.setContentView(R.layout.dialog);
+				((ImageView) myDialog.findViewById(R.id.iv)).setImageBitmap(main);
+				((TextView) myDialog.findViewById(R.id.content)).setText(content);
 				myDialog.show();
 			}
 		});
 		mData.add(data);
-
 	}
 
-	public View addView(Bitmap bmp, int seatX, int seatY, ImageView.OnClickListener onclick) {
+	public View addView(Bitmap bmp, int seatX, int seatY, final Bitmap bmp2, final String data) {
 		Matrix matrix = new Matrix();
 		// icon 縮放比例
 		matrix.postScale(0.5f, 0.5f);
@@ -79,7 +77,18 @@ public class StumobileActivity extends Activity {
 		params.setMargins(seatX, seatY, 0, 0);
 		IV.setLayoutParams(params);
 		// 設定處發事件
-		IV.setOnClickListener(onclick);
+		IV.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				// startActivity(new Intent(StumobileActivity.this, aaa.class));
+				final Dialog myDialog = new Dialog(StumobileActivity.this, android.R.style.Theme_Dialog);
+				myDialog.setTitle(data);
+				myDialog.setContentView(R.layout.dialog);
+				((ImageView) myDialog.findViewById(R.id.iv)).setImageBitmap(bmp2);
+				((TextView) myDialog.findViewById(R.id.content)).setText(data);
+				myDialog.show();
+
+			}
+		});
 		return IV;
 	}
 
@@ -117,11 +126,6 @@ public class StumobileActivity extends Activity {
 		getWindowManager().getDefaultDisplay().getMetrics(dm);
 		return dm.heightPixels;
 	}
-
-	private ImageView.OnClickListener IVOCL = new ImageView.OnClickListener() {
-		public void onClick(View v) {
-		}
-	};
 
 	class Panel extends View {
 		float hscale;

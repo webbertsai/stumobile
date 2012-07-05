@@ -1,6 +1,11 @@
 package edu.stu;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,17 +13,18 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.ContextThemeWrapper;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
-import android.widget.Toast;
 
 public class StumobileActivity extends Activity {
 	LinearLayout main;
 	int iconWidth, iconHeigth, num = 0;
+	private ArrayList<HashMap<String, Object>> mData = new ArrayList<HashMap<String, Object>>();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -26,27 +32,55 @@ public class StumobileActivity extends Activity {
 		setContentView(R.layout.main);
 		findViews();
 		Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+
+		main.addView(addView(bmp, 80, 400, new OnClickListener() {
+			public void onClick(View v) {
+				// startActivity(new Intent(StumobileActivity.this, aaa.class));
+				final Dialog myDialog = new Dialog(StumobileActivity.this, R.style.dialog);
+				myDialog.setContentView(R.layout.dialog);
+				myDialog.show();
+				
+
+			}
+		}));
+	}
+
+	private void setData() {
+		HashMap<String, Object> data = new HashMap<String, Object>();
+		Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+		float scaleW = getwidthPixels() / 480.0f;
+		float scaleH = getheightPixels() / 800.0f;
+		data.put("scaleW", scaleW);
+		data.put("scaleH", scaleH);
+		data.put("bmp", bmp);
+		data.put("OnClickListener", new OnClickListener() {
+			public void onClick(View v) {
+				final Dialog myDialog = new Dialog(StumobileActivity.this, android.R.style.Theme_Translucent_NoTitleBar);
+				myDialog.setContentView(R.layout.dialog);
+				myDialog.show();
+			}
+		});
+		mData.add(data);
+
+	}
+
+	public View addView(Bitmap bmp, int seatX, int seatY, ImageView.OnClickListener onclick) {
 		Matrix matrix = new Matrix();
+		// icon 縮放比例
 		matrix.postScale(0.5f, 0.5f);
+		// icon 旋轉
 		// matrix.postRotate(45);
+		// 將bmp進行縮放
 		Bitmap dstbmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, true);
 		ImageView IV = new ImageView(this);
 		IV.setImageBitmap(dstbmp);
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		params.setMargins(80, 400, 0, 0);
+		// 設定打點位置
+		params.setMargins(seatX, seatY, 0, 0);
 		IV.setLayoutParams(params);
-		IV.setOnClickListener(new OnClickListener() {
-
-			public void onClick(View v) {
-				Toast.makeText(StumobileActivity.this, "hello", 0).show();
-			}
-		});
-		main.addView(IV);
-
-	}
-
-	public void addView(LinearLayout.LayoutParams params, Bitmap bmp, int seatX, int seatY, ImageView.OnClickListener onclick) {
-
+		// 設定處發事件
+		IV.setOnClickListener(onclick);
+		return IV;
 	}
 
 	@Override

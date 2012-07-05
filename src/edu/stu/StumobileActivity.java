@@ -30,7 +30,7 @@ public class StumobileActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		findViews();
-		Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+		Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.icon03);
 		Bitmap bmp2 = BitmapFactory.decodeResource(getResources(), R.drawable.administrative);
 
 		// setData(80, 400, bmp, bmp2, "行政大樓");
@@ -39,7 +39,7 @@ public class StumobileActivity extends Activity {
 		// (OnClickListener) mData
 		// .get(0).get("OnClickListener"));
 
-		main.addView(addView(bmp, 80, 400, bmp2, "行政大樓"));
+		main.addView(addView(bmp, 80, 400, bmp2, "行政大樓", "所有行政相關單位通通匯集於此"));
 
 	}
 
@@ -62,10 +62,10 @@ public class StumobileActivity extends Activity {
 		mData.add(data);
 	}
 
-	public View addView(Bitmap bmp, int seatX, int seatY, final Bitmap bmp2, final String data) {
+	public View addView(Bitmap bmp, int seatX, int seatY, final Bitmap bmp2, final String title, final String data) {
 		Matrix matrix = new Matrix();
 		// icon 縮放比例
-		matrix.postScale(0.5f, 0.5f);
+		matrix.postScale(0.3f, 0.3f);
 		// icon 旋轉
 		// matrix.postRotate(45);
 		// 將bmp進行縮放
@@ -81,7 +81,7 @@ public class StumobileActivity extends Activity {
 			public void onClick(View v) {
 				// startActivity(new Intent(StumobileActivity.this, aaa.class));
 				final Dialog myDialog = new Dialog(StumobileActivity.this, android.R.style.Theme_Dialog);
-				myDialog.setTitle(data);
+				myDialog.setTitle(title);
 				myDialog.setContentView(R.layout.dialog);
 				((ImageView) myDialog.findViewById(R.id.iv)).setImageBitmap(bmp2);
 				((TextView) myDialog.findViewById(R.id.content)).setText(data);

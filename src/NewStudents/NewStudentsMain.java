@@ -1,4 +1,4 @@
-package edu.stu;
+package NewStudents;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,7 +11,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.os.Bundle;
-import android.provider.Settings.System;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,29 +19,22 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
+import edu.stu.R;
+import edu.stu.StumobileActivity;
 
-public class StumobileActivity extends Activity {
+public class NewStudentsMain extends Activity{
+	
 	LinearLayout main;
 	int iconWidth, iconHeigth, num = 0;
 	private ArrayList<HashMap<String, Object>> mData = new ArrayList<HashMap<String, Object>>();
-
+	
+	
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.new_students);
-		findViews();
-		
-		
-		Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.icon03);
-		Bitmap bmp2 = BitmapFactory.decodeResource(getResources(), R.drawable.administrative);
-
-		setData(80, 400, bmp, bmp2, "行政大樓");
-		addView((Bitmap) mData.get(0).get("bmp"), (Integer) mData.get(0).get("scaleW"), (Integer) mData.get(0).get("scaleH"), bmp2, "行政大樓", "處理行政一起的地方");
-
-		main.addView(addView(bmp, 80, 400, bmp2, "行政大樓", "所有行政相關單位通通匯集於此"));
-
 	}
-
+	
+	
 	private void setData(int x, int y, Bitmap icon, Bitmap main, String content) {
 		HashMap<String, Object> data = new HashMap<String, Object>();
 		data.put("scaleW", getwidthPixels() / 480 * x);
@@ -69,7 +61,7 @@ public class StumobileActivity extends Activity {
 		IV.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				// startActivity(new Intent(StumobileActivity.this, aaa.class));
-				final Dialog myDialog = new Dialog(StumobileActivity.this, R.style.dialog);
+				final Dialog myDialog = new Dialog(NewStudentsMain.this, R.style.dialog);
 				myDialog.setTitle(title);
 				myDialog.setContentView(R.layout.dialog);
 				((ImageView) myDialog.findViewById(R.id.iv)).setImageBitmap(bmp2);
@@ -137,5 +129,4 @@ public class StumobileActivity extends Activity {
 		}
 
 	}
-
 }

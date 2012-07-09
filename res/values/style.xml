@@ -1,0 +1,20 @@
+<resources>
+
+    <style name="dialog" parent="@android:style/Theme.Dialog">
+        <!-- 線條 -->
+        <item name="android:windowFrame">@null</item>
+        <!-- 是否要在背景activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 半透明 -->
+        <item name="android:windowIsTranslucent">false</item>
+        <!-- 是否要移除Title -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 視窗背景顏色 -->
+        <item name="android:windowBackground">@color/transparent</item>
+        <!--  -->
+        <item name="android:windowContentOverlay">@null</item>
+        <!-- 背景灰階 -->
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+</resources>

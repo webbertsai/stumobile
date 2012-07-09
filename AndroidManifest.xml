@@ -11,7 +11,8 @@
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
-        <activity android:name=".StumobileActivity"
+        <activity
+            android:name=".StumobileActivity"
             android:theme="@android:style/Theme.Black.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,6 +20,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity 
+            android:theme="@android:style/Theme.Black.NoTitleBar"
+            android:name="edu.stu.NewStudents.NewStudentsMain" />
     </application>
 
 </manifest>

@@ -22,7 +22,7 @@
         </activity>
         <activity 
             android:theme="@android:style/Theme.Black.NoTitleBar"
-            android:name="edu.stu.NewStudents.NewStudentsMain" />
+            android:name=".NewStudentsMain" />
     </application>
 
 </manifest>

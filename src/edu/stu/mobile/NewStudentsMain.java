@@ -1,4 +1,4 @@
-package edu.stu.NewStudents;
+package edu.stu.mobile;
 
 import java.util.ArrayList;
 import java.util.HashMap;

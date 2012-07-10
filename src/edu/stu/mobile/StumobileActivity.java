@@ -16,7 +16,7 @@ public class StumobileActivity extends Activity {
 	}
 
 	public void NewStu(View v) {
-		startActivity(new Intent(StumobileActivity.this, edu.stu.NewStudents.NewStudentsMain.class));
+		startActivity(new Intent(StumobileActivity.this, edu.stu.mobile.NewStudentsMain.class));
 	}
 
 }

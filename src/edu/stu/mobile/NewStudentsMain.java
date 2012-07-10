@@ -19,7 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
-import edu.stu.mobile.util.SystemUtils;
+import edu.stu.mobile.util.ResolutionUtils;
 
 public class NewStudentsMain extends Activity {
 
@@ -45,8 +45,8 @@ public class NewStudentsMain extends Activity {
 
 	private void setData(int x, int y, Bitmap icon, Bitmap main, String content) {
 		HashMap<String, Object> data = new HashMap<String, Object>();
-		data.put("scaleW", SystemUtils.getheightPixels(this) / 480 * x);
-		data.put("scaleH", SystemUtils.getwidthPixels(this) / 800 * y);
+		data.put("scaleW", ResolutionUtils.getheightPixels(this) / 480 * x);
+		data.put("scaleH", ResolutionUtils.getwidthPixels(this) / 800 * y);
 		data.put("bmp", icon);
 		mData.add(data);
 	}

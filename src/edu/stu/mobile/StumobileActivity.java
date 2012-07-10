@@ -1,6 +1,5 @@
 package edu.stu.mobile;
 
-import edu.stu.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

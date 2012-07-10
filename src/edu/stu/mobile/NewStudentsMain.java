@@ -19,7 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
-import edu.stu.R;
+import edu.stu.mobile.util.SystemUtils;
 
 public class NewStudentsMain extends Activity {
 
@@ -45,8 +45,8 @@ public class NewStudentsMain extends Activity {
 
 	private void setData(int x, int y, Bitmap icon, Bitmap main, String content) {
 		HashMap<String, Object> data = new HashMap<String, Object>();
-		data.put("scaleW", getwidthPixels() / 480 * x);
-		data.put("scaleH", getheightPixels() / 800 * y);
+		data.put("scaleW", SystemUtils.getheightPixels(this) / 480 * x);
+		data.put("scaleH", SystemUtils.getwidthPixels(this) / 800 * y);
 		data.put("bmp", icon);
 		mData.add(data);
 	}
@@ -98,23 +98,11 @@ public class NewStudentsMain extends Activity {
 		main = (LinearLayout) findViewById(R.id.main);
 	}
 
-	/**
-	 * 取得解析度的寬
-	 * */
-	public int getwidthPixels() {
-		DisplayMetrics dm = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(dm);
-		return dm.widthPixels;
-	}
+	
+	
 
-	/**
-	 * 取得解析度的高
-	 * */
-	public int getheightPixels() {
-		DisplayMetrics dm = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(dm);
-		return dm.heightPixels;
-	}
+	
+	
 
 	class Panel extends View {
 		float hscale;

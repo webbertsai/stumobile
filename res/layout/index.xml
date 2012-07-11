@@ -7,7 +7,12 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="新生導覽"
-        android:onClick="NewStu" />
+        android:onClick="NewStu"
+        android:text="新生導覽" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="123456" />
 
 </LinearLayout>

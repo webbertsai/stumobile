@@ -31,11 +31,11 @@ public class DynamicImageView extends ImageView {
 	 * @param HeightPixelsDevelop 開發者手機解析度(高)
 	 * @param WidthPixelsDevelop 開發者手機解析度(寬)
 	 */
-	public void setPosition(int seatX, int seatY, int HeightPixelsDevelop, int WidthPixelsDevelop) {
+	public void setPosition(int seatX, int seatY, int DevelopPixelsHeight, int DevelopPixelsWidth) {
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		params.setMargins(
-				(int) (ResolutionUtils.getWidthPixels(this.context) / HeightPixelsDevelop * seatX),
-				(int) (ResolutionUtils.getHeightPixels(this.context) / WidthPixelsDevelop * seatY), 0, 0);
+				(int) (ResolutionUtils.getPixelsWidth(this.context) / DevelopPixelsHeight * seatX),
+				(int) (ResolutionUtils.getPixelsHeight(this.context) / DevelopPixelsWidth * seatY), 0, 0);
 		DynamicImageView.this.setLayoutParams(params);
 	}
 

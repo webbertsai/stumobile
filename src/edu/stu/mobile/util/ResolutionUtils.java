@@ -11,7 +11,7 @@ public class ResolutionUtils {
 	 * @return 螢幕解析度的寬
 	 * @author Webber
 	 */
-	public static double getWidthPixels(Context context) {
+	public static double getPixelsWidth(Context context) {
 		DisplayMetrics dm = new DisplayMetrics();
 		((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(dm);
 		return dm.widthPixels;
@@ -22,7 +22,7 @@ public class ResolutionUtils {
 	 * @return 螢幕解析度的高
 	 * @author Webber	
 	 */
-	public static double getHeightPixels(Context context) {
+	public static double getPixelsHeight(Context context) {
 		DisplayMetrics dm = new DisplayMetrics();
 		((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(dm);
 		return dm.heightPixels;

@@ -6,6 +6,7 @@ import android.graphics.Matrix;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 public class DynamicImageView extends ImageView {
 	private Matrix matrix = null;
@@ -32,7 +33,7 @@ public class DynamicImageView extends ImageView {
 	 * @param WidthPixelsDevelop 開發者手機解析度(寬)
 	 */
 	public void setPosition(int seatX, int seatY, int DevelopPixelsHeight, int DevelopPixelsWidth) {
-		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		params.setMargins(
 				(int) (ResolutionUtils.getPixelsWidth(this.context) / DevelopPixelsHeight * seatX),
 				(int) (ResolutionUtils.getPixelsHeight(this.context) / DevelopPixelsWidth * seatY), 0, 0);

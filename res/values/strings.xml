@@ -3,5 +3,8 @@
 
     <string name="hello">Hello World, StumobileActivity!</string>
     <string name="app_name">StuMobile</string>
+    <string name="need">需要</string>
+    <string name="notneed">不需要</string>
+    <string name="FreshmanToApplication">新生可申請事項之流程</string>
 
 </resources>

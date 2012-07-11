@@ -20,10 +20,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
         <activity
-            android:name=".NewStudentsMain"
+            android:name=".FreshmanMain"
             android:screenOrientation="portrait" >
         </activity>
+        
+        <activity
+            android:name=".FreshmanToApplicationListview"
+            android:screenOrientation="portrait" >
+        </activity>
+        
+        
     </application>
 
 </manifest>

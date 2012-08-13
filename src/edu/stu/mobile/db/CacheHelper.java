@@ -96,7 +96,7 @@ public class CacheHelper extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS unit");
 		db.execSQL("DROP TABLE IF EXISTS application_form");
 		db.execSQL("DROP TABLE IF EXISTS application_form_requirement");
-		db.execSQL("DROP TABLE IF EXISTS user_apply");
+		db.execSQL("DROP TABLE IF EXISTS user_apply	");
 	}
 
 }

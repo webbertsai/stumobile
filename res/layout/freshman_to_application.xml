@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="#FF0000"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -24,6 +25,7 @@
         android:layout_weight="8" >
 
         <ListView
+            android:listSelector="@drawable/styple_list"
             android:id="@+id/application"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

@@ -1,7 +1,6 @@
 <resources>
 
     <style name="dialog" parent="@android:style/Theme.Dialog">
-
         <!-- 線條 -->
         <item name="android:windowFrame">@null</item>
         <!-- 是否要在背景activity之上 -->

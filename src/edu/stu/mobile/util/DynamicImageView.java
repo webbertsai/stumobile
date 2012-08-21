@@ -47,7 +47,7 @@ public class DynamicImageView extends ImageView {
 	 * @param ScaleHeight 縮放比例(高)
 	 * @param ScaleWidth 縮放比例(寬)
 	 * @param Rotate 旋轉
-	 * @author webber
+	 * @author Webber
 	 */
 	public void setIcon(Bitmap icon, float ScaleHeight, float ScaleWidth, float Rotate) {
 		if (matrix == null) {

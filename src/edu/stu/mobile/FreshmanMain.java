@@ -22,32 +22,6 @@ public class FreshmanMain extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// setContentView(R.layout.new_students_main);
-		// findViews();
-		//
-		// title.setText("請選擇要辦理的事項");
-
-		// Bitmap icon = BitmapFactory.decodeResource(getResources(),
-		// R.drawable.icon03);
-		// final Bitmap bmp2 = BitmapFactory.decodeResource(getResources(),
-		// R.drawable.administrative);
-		//
-		// DynamicImageView imag = new DynamicImageView(this);
-		// imag.setIcon(icon, 0.3f, 0.3f, 0);
-		// imag.setPosition(400, 700, 480, 800);
-		// imag.setOnClickListener(new OnClickListener() {
-		//
-		// public void onClick(View v) {
-		// Dialog dialog = new Dialog(NewStudentsMain.this);
-		// dialog.setContentView(R.layout.dialog);
-		// dialog.setTitle("行政大樓");
-		// ((ImageView) dialog.findViewById(R.id.iv)).setImageBitmap(bmp2);
-		// ((TextView) dialog.findViewById(R.id.content)).setText("行政大樓真的非常好玩");
-		// dialog.show();
-		// }
-		// });
-		//
-		// main.addView(imag);
 	}
 
 	private void findViews() {

@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Hello World, StumobileActivity!</string>
     <string name="app_name">StuMobile</string>
+    <string name="stu_address">高雄市燕巢區橫山路59號</string>
+    <string name="stu_zipcode">82445</string>
+    <string name="stu_phnoe">07\-6158000</string>
+    <string name="stu_name">樹德科技大學</string>
     <string name="need">需要</string>
     <string name="notneed">不需要</string>
     <string name="FreshmanToApplication">新生可申請事項之流程</string>

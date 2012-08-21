@@ -14,7 +14,7 @@ public class StumobileActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.index);
+//		setContentView(R.layout.index);
 		CacheHelper help = new CacheHelper(this);
 //		SQLiteDatabase db = help.getWritableDatabase();
 //		ContentValues values = new ContentValues();

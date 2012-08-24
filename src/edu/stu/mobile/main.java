@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.widget.GridView;
 import android.widget.TextView;
 
-public class main extends Activity {
+public class Main extends Activity {
 
 	// Declaration
 	TextView About;

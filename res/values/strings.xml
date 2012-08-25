@@ -10,4 +10,7 @@
     <string name="notneed">不需要</string>
     <string name="FreshmanToApplication">新生可申請事項之流程</string>
 
+    <!-- Main FunctionMenuText -->
+    <string name="ext_table">分機表</string>
+
 </resources>

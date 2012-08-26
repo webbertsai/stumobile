@@ -40,7 +40,8 @@ public class MainItem extends BaseAdapter {
 		if (data != null && data.size() > 0) {
 			View icon = ((View) view.findViewById(R.id.icon));
 			icon.setBackgroundResource((Integer) data.get(position).get("icon"));
-			icon.setLayoutParams(new LayoutParams((int) this.errorH * 75, (int) errorW * 75));
+			
+			icon.setLayoutParams(new LayoutParams((int) (this.errorH * 75), (int) (this.errorW * 75)));
 			((TextView) view.findViewById(R.id.title)).setText((String) data.get(position).get("title"));
 
 		}

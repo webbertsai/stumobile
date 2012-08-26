@@ -32,12 +32,17 @@ public class Main extends Activity implements OnPageChangeListener {
 	private void initFunctionMenuitem() {
 		// 各功能Icon
 		int FunctionMenuIcon[] = {
-				R.drawable.ext_table, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.ext_table, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03,
+				R.drawable.ext_table, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03,
 				R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03,
+				R.drawable.icon03, R.drawable.ext_table, R.drawable.icon03, R.drawable.icon03, 
+				R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03,
+				R.drawable.icon03, R.drawable.icon03,
 		};
 		// 個功能名稱 （建議使用 Strings.xml 新增，以便多國語系使用）
 		String FunctionMenuText[] = {
-				getString(R.string.ext_table), "test", "test", "test", "test", "test", "test", "test", "test", getString(R.string.ext_table), "test", "test", "test", "test", "test", "test", "test", "test",
+				getString(R.string.ext_table), "test", "test", "test", "test", "test",
+				"test", "test", "test", getString(R.string.ext_table), "test", "test",
+				"test", "test", "test", "test", "test", "test",
 		};
 
 		setFunctionMenuData(FunctionMenuIcon, FunctionMenuText);
@@ -48,10 +53,12 @@ public class Main extends Activity implements OnPageChangeListener {
 		// 一列最多幾個項目
 		page.setNumColumns(4);
 		page.setScrollBarStyle(0);
-		page.setVerticalSpacing(20);
+		page.setVerticalSpacing(10);
 		LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 		page.setLayoutParams(lp);
-		page.setAdapter(new MainItem(this, FunctionMenuData, ResolutionUtils.getPixelsHeight(this) / 800, ResolutionUtils.getPixelsHeight(this) / 480));
+		page.setAdapter(new MainItem(this, FunctionMenuData, ResolutionUtils.getPixelsHeight(this) / 800, ResolutionUtils.getPixelsWidth(this) / 480));
+		System.out.println();
+		
 		// gridview.setOnTouchListener(forbidenScroll());
 		// gridview.setOnItemClickListener(clickFuncItem());
 
@@ -114,22 +121,21 @@ public class Main extends Activity implements OnPageChangeListener {
 		findViews();
 		init();
 
-		// FunctionMenu.setAdapter(new MainItem(this, FunctionMenuData,
-		// ResolutionUtils.getPixelsHeight(this) / 800,
-		// ResolutionUtils.getPixelsHeight(this) / 480));
 	}
 
+	@Override
 	public void onPageScrollStateChanged(int arg0) {
 
 	}
 
+	@Override
 	public void onPageScrolled(int arg0, float arg1, int arg2) {
 
 	}
 
+	@Override
 	public void onPageSelected(int arg0) {
-		
-		System.out.println(arg0 + "頁");
+
 	}
 
 }

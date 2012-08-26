@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import ui.ViewPagerAdapter;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
@@ -52,8 +53,24 @@ public class Main extends Activity implements OnPageChangeListener {
 		GridView page = new GridView(this);
 		// 一列最多幾個項目
 		page.setNumColumns(4);
+		// 把滑動的bar隱藏
 		page.setScrollBarStyle(0);
+		// 每列之間的高度兼具
 		page.setVerticalSpacing(10);
+		// 讓Gridview 不可以滑動
+		page.setOnTouchListener(
+			new OnTouchListener(){
+			    @Override
+			    public boolean onTouch(View v, MotionEvent event) {
+			        if(event.getAction() == MotionEvent.ACTION_MOVE){
+			            return true;
+			        }
+			        return false;
+			    }
+	
+			}
+		);
+		
 		LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 		page.setLayoutParams(lp);
 		page.setAdapter(new MainItem(this, FunctionMenuData, ResolutionUtils.getPixelsHeight(this) / 800, ResolutionUtils.getPixelsWidth(this) / 480));

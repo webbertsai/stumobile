@@ -24,7 +24,6 @@ public class Main extends Activity implements OnPageChangeListener {
 	ViewPager FunctionMenu;
 	LinearLayout PageNum;
 	String tag = "Main";
-
 	ArrayList<View> FunctionPage;
 
 	/**
@@ -33,20 +32,33 @@ public class Main extends Activity implements OnPageChangeListener {
 	private void initFunctionMenuitem() {
 		// 各功能Icon
 		int FunctionMenuIcon[] = {
-				R.drawable.ext_table, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03,
+				R.drawable.ext_table, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.ext_table, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03,
 				R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03,
-				R.drawable.icon03, R.drawable.ext_table, R.drawable.icon03, R.drawable.icon03, 
-				R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03,
-				R.drawable.icon03, R.drawable.icon03,
 		};
 		// 個功能名稱 （建議使用 Strings.xml 新增，以便多國語系使用）
 		String FunctionMenuText[] = {
-				getString(R.string.ext_table), "test", "test", "test", "test", "test",
-				"test", "test", "test", getString(R.string.ext_table), "test", "test",
-				"test", "test", "test", "test", "test", "test",
+				getString(R.string.ext_table), "test", "test", "test", "test", "test", "test", "test", "test", getString(R.string.ext_table), "test", "test", "test", "test", "test", "test", "test", "test",
 		};
 
 		setFunctionMenuData(FunctionMenuIcon, FunctionMenuText);
+	}
+
+	private void addFunctionMenuPagBlackDot(int number) {
+		View dot = new View(this);
+		dot.setBackgroundResource(R.drawable.dot_black);
+		LayoutParams lp = new LayoutParams(10, 10);
+		lp.setMargins(5, 0, 5, 0);
+		dot.setLayoutParams(lp);
+		PageNum.addView(dot, number);
+	}
+	
+	private void addFunctionMenuPagBluueDot(int number) {
+		View dot = new View(this);
+		dot.setBackgroundResource(R.drawable.dot_blue);
+		LayoutParams lp = new LayoutParams(10, 10);
+		lp.setMargins(5, 0, 5, 0);
+		dot.setLayoutParams(lp);
+		PageNum.addView(dot, number);
 	}
 
 	private View newBtnPage(ArrayList<HashMap<String, Object>> FunctionMenuData) {
@@ -58,23 +70,21 @@ public class Main extends Activity implements OnPageChangeListener {
 		// 每列之間的高度兼具
 		page.setVerticalSpacing(10);
 		// 讓Gridview 不可以滑動
-		page.setOnTouchListener(
-			new OnTouchListener(){
-			    @Override
-			    public boolean onTouch(View v, MotionEvent event) {
-			        if(event.getAction() == MotionEvent.ACTION_MOVE){
-			            return true;
-			        }
-			        return false;
-			    }
-	
+		page.setOnTouchListener(new OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				if (event.getAction() == MotionEvent.ACTION_MOVE) {
+					return true;
+				}
+				return false;
 			}
-		);
-		
+
+		});
+
 		LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 		page.setLayoutParams(lp);
 		page.setAdapter(new MainItem(this, FunctionMenuData, ResolutionUtils.getPixelsHeight(this) / 800, ResolutionUtils.getPixelsWidth(this) / 480));
-		
+
 		// gridview.setOnTouchListener(forbidenScroll());
 		// gridview.setOnItemClickListener(clickFuncItem());
 
@@ -103,16 +113,11 @@ public class Main extends Activity implements OnPageChangeListener {
 			}
 
 			FunctionPage.add(newBtnPage(FunctionMenuData));
-
-			View dot = new View(this);
 			if (FunctionMenuPageDot == 1) {
-				dot.setBackgroundResource(R.drawable.dot_blue);
+				addFunctionMenuPagBluueDot(0);
+			} else {
+				addFunctionMenuPagBlackDot(1);
 			}
-			dot.setBackgroundResource(R.drawable.dot_black);
-			LayoutParams lp = new LayoutParams(10, 10);
-			lp.setMargins(5, 0, 5, 0);
-			dot.setLayoutParams(lp);
-			PageNum.addView(dot);
 		}
 
 		FunctionMenu.setAdapter(new ViewPagerAdapter(FunctionPage));
@@ -140,7 +145,6 @@ public class Main extends Activity implements OnPageChangeListener {
 		setContentView(R.layout.main);
 		findViews();
 		init();
-
 	}
 
 	@Override
@@ -152,18 +156,14 @@ public class Main extends Activity implements OnPageChangeListener {
 	public void onPageScrolled(int arg0, float arg1, int arg2) {
 
 	}
-	
+
 	int CurrentlyPages = 0;
+
 	@Override
 	public void onPageSelected(int arg0) {
 		PageNum.removeViewAt(CurrentlyPages);
 		CurrentlyPages = arg0;
-		View dot = new View(this);
-		dot.setBackgroundResource(R.drawable.dot_blue);
-		LayoutParams lp = new LayoutParams(10, 10);
-		lp.setMargins(5, 0, 5, 0);
-		dot.setLayoutParams(lp);
-		PageNum.addView(dot, arg0);
+		addFunctionMenuPagBluueDot(arg0);
 	}
 
 }

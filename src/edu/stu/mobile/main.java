@@ -57,7 +57,6 @@ public class Main extends Activity implements OnPageChangeListener {
 		LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 		page.setLayoutParams(lp);
 		page.setAdapter(new MainItem(this, FunctionMenuData, ResolutionUtils.getPixelsHeight(this) / 800, ResolutionUtils.getPixelsWidth(this) / 480));
-		System.out.println();
 		
 		// gridview.setOnTouchListener(forbidenScroll());
 		// gridview.setOnItemClickListener(clickFuncItem());
@@ -89,6 +88,9 @@ public class Main extends Activity implements OnPageChangeListener {
 			FunctionPage.add(newBtnPage(FunctionMenuData));
 
 			View dot = new View(this);
+			if (FunctionMenuPageDot == 1) {
+				dot.setBackgroundResource(R.drawable.dot_blue);
+			}
 			dot.setBackgroundResource(R.drawable.dot_black);
 			LayoutParams lp = new LayoutParams(10, 10);
 			lp.setMargins(5, 0, 5, 0);
@@ -98,6 +100,7 @@ public class Main extends Activity implements OnPageChangeListener {
 
 		FunctionMenu.setAdapter(new ViewPagerAdapter(FunctionPage));
 		FunctionMenu.setCurrentItem(0);
+		FunctionMenu.setOnPageChangeListener(this);
 
 	};
 
@@ -132,10 +135,18 @@ public class Main extends Activity implements OnPageChangeListener {
 	public void onPageScrolled(int arg0, float arg1, int arg2) {
 
 	}
-
+	
+	int CurrentlyPages = 0;
 	@Override
 	public void onPageSelected(int arg0) {
-
+		PageNum.removeViewAt(CurrentlyPages);
+		CurrentlyPages = arg0;
+		View dot = new View(this);
+		dot.setBackgroundResource(R.drawable.dot_blue);
+		LayoutParams lp = new LayoutParams(10, 10);
+		lp.setMargins(5, 0, 5, 0);
+		dot.setLayoutParams(lp);
+		PageNum.addView(dot, arg0);
 	}
 
 }

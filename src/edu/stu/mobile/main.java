@@ -43,23 +43,27 @@ public class Main extends Activity implements OnPageChangeListener {
 		setFunctionMenuData(FunctionMenuIcon, FunctionMenuText);
 	}
 
-	private void addFunctionMenuPagBlackDot(int number) {
+	/**
+	 * 新增下方頁面頁碼
+	 * 
+	 * @param number
+	 *            此點為第幾頁
+	 * @param color
+	 *            此點的顏色為何：1.藍色 2.黑色
+	 */
+	private void addFunctionMenuPagDot(int number, int color) {
 		View dot = new View(this);
-		dot.setBackgroundResource(R.drawable.dot_black);
+		if (color == 1) {
+			dot.setBackgroundResource(R.drawable.dot_blue);
+		} else {
+			dot.setBackgroundResource(R.drawable.dot_black);
+		}
 		LayoutParams lp = new LayoutParams(10, 10);
 		lp.setMargins(5, 0, 5, 0);
 		dot.setLayoutParams(lp);
 		PageNum.addView(dot, number);
 	}
-	
-	private void addFunctionMenuPagBluueDot(int number) {
-		View dot = new View(this);
-		dot.setBackgroundResource(R.drawable.dot_blue);
-		LayoutParams lp = new LayoutParams(10, 10);
-		lp.setMargins(5, 0, 5, 0);
-		dot.setLayoutParams(lp);
-		PageNum.addView(dot, number);
-	}
+
 
 	private View newBtnPage(ArrayList<HashMap<String, Object>> FunctionMenuData) {
 		GridView page = new GridView(this);
@@ -114,9 +118,9 @@ public class Main extends Activity implements OnPageChangeListener {
 
 			FunctionPage.add(newBtnPage(FunctionMenuData));
 			if (FunctionMenuPageDot == 1) {
-				addFunctionMenuPagBluueDot(0);
+				addFunctionMenuPagDot(0, 1);
 			} else {
-				addFunctionMenuPagBlackDot(1);
+				addFunctionMenuPagDot(1, 2);
 			}
 		}
 
@@ -163,7 +167,7 @@ public class Main extends Activity implements OnPageChangeListener {
 	public void onPageSelected(int arg0) {
 		PageNum.removeViewAt(CurrentlyPages);
 		CurrentlyPages = arg0;
-		addFunctionMenuPagBluueDot(arg0);
+		addFunctionMenuPagDot(arg0, 1);
 	}
 
 }

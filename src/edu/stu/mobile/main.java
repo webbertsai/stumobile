@@ -3,7 +3,6 @@ package edu.stu.mobile;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import ui.ViewPagerAdapter;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -16,6 +15,7 @@ import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
+import edu.stu.mobile.ui.ViewPagerAdapter;
 import edu.stu.mobile.util.ResolutionUtils;
 
 public class Main extends Activity implements OnPageChangeListener {

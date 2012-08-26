@@ -1,4 +1,4 @@
-package ui;
+package edu.stu.mobile.ui;
 
 import java.util.List;
 import android.os.Parcelable;

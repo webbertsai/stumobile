@@ -38,8 +38,9 @@ public class MainItem extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View view = inflater.inflate(R.layout.main_item, null);
 		if (data != null && data.size() > 0) {
-			((View) view.findViewById(R.id.icon)).setBackgroundResource((Integer) data.get(position).get("icon"));
-			((View) view.findViewById(R.id.icon)).setLayoutParams(new LayoutParams((int) this.errorH * 75, (int) errorW * 75));
+			View icon = ((View) view.findViewById(R.id.icon));
+			icon.setBackgroundResource((Integer) data.get(position).get("icon"));
+			icon.setLayoutParams(new LayoutParams((int) this.errorH * 75, (int) errorW * 75));
 			((TextView) view.findViewById(R.id.title)).setText((String) data.get(position).get("title"));
 
 		}

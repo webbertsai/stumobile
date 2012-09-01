@@ -8,7 +8,7 @@
     <View
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_weight="3.5"
         android:background="@drawable/main_titile" />
 
     <View
@@ -18,12 +18,15 @@
         android:layout_marginRight="10dp"
         android:layout_weight="0.3" />
 
-    <View
+    <ViewFlipper
+        android:id="@+id/Panel"
         style="@style/Margin"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="4"
-        android:background="@color/red" />
+        android:layout_weight="3.5"
+        android:autoStart="true"
+        android:flipInterval="6000" >
+    </ViewFlipper>
 
     <View
         android:layout_width="fill_parent"
@@ -77,23 +80,32 @@
         android:layout_weight="2"
         android:background="@color/red" >
 
-        <Button
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:background="@color/red" />
+            android:gravity="center"
+            android:background="@color/red" >
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:background="@color/transparent" />
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent" />
+        </LinearLayout>
 
-        <Button
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:background="@color/red" />
+            android:background="@color/transparent" >
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@color/red" >
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

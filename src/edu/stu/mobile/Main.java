@@ -4,17 +4,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 import edu.stu.mobile.ui.ViewPagerAdapter;
 import edu.stu.mobile.util.ResolutionUtils;
 
@@ -22,9 +27,65 @@ public class Main extends Activity implements OnPageChangeListener {
 
 	TextView About;
 	ViewPager FunctionMenu;
+	ViewFlipper Panel;
 	LinearLayout PageNum;
 	String tag = "Main";
 	ArrayList<View> FunctionPage;
+
+	private void initPanel() {
+		int PanelImages[] = {
+				R.drawable.a1, R.drawable.a2
+		};
+
+		String Urls[] = {
+				"http://freshman.stu.edu.tw/", "http://ccds2012.stu.edu.tw/"
+		};
+
+		Panel.setInAnimation(this, R.anim.in_leftright);
+		Panel.setOutAnimation(this, R.anim.out_leftright);
+		setPanelData(PanelImages, Urls);
+	}
+
+	private void setPanelData(int[] PaneImages, String[] Urls) {
+		if (PaneImages.length == Urls.length) {
+			for (int index = 0; index < PaneImages.length; index++) {
+				Panel.addView(newPanelView(PaneImages[index], Urls[index]));
+			}
+		}
+	}
+
+	private View newPanelView(int PaneImage, final String Url) {
+		View v = new View(this);
+		v.setBackgroundResource(PaneImage);
+		v.setOnClickListener(new OnClickListener() {
+
+			public void onClick(View arg0) {
+				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Url)));
+			}
+		});
+		v.setOnTouchListener(new OnTouchListener() {
+
+			private int x;
+
+			public boolean onTouch(View v, MotionEvent event) {
+				switch (event.getAction()) {
+				case MotionEvent.ACTION_UP:
+					if (event.getX() > x) {
+						System.out.println("右邊");
+					}
+					v.getBackground().setAlpha(255);
+					
+					break;
+				default:
+					this.x = (int) event.getX();
+					v.getBackground().setAlpha(150);
+				}
+
+				return false;
+			}
+		});
+		return v;
+	}
 
 	/**
 	 * 初始話所需要使用的 icon 及 title，如需要請在此增加（ 兩者數量需一致 ）
@@ -35,6 +96,7 @@ public class Main extends Activity implements OnPageChangeListener {
 				R.drawable.ext_table, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.ext_table, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03,
 				R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03,
 		};
+
 		// 個功能名稱 （建議使用 Strings.xml 新增，以便多國語系使用）
 		String FunctionMenuText[] = {
 				getString(R.string.ext_table), "test", "test", "test", "test", "test", "test", "test", "test", getString(R.string.ext_table), "test", "test", "test", "test", "test", "test", "test", "test",
@@ -64,7 +126,6 @@ public class Main extends Activity implements OnPageChangeListener {
 		PageNum.addView(dot, number);
 	}
 
-
 	private View newBtnPage(ArrayList<HashMap<String, Object>> FunctionMenuData) {
 		GridView page = new GridView(this);
 		// 一列最多幾個項目
@@ -88,8 +149,6 @@ public class Main extends Activity implements OnPageChangeListener {
 		LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 		page.setLayoutParams(lp);
 		page.setAdapter(new MainItem(this, FunctionMenuData, ResolutionUtils.getPixelsHeight(this) / 800, ResolutionUtils.getPixelsWidth(this) / 480));
-
-		// gridview.setOnTouchListener(forbidenScroll());
 		// gridview.setOnItemClickListener(clickFuncItem());
 
 		return page;
@@ -133,6 +192,7 @@ public class Main extends Activity implements OnPageChangeListener {
 	private void findViews() {
 		About = (TextView) findViewById(R.id.About);
 		FunctionMenu = (ViewPager) findViewById(R.id.FunctionMenu);
+		Panel = (ViewFlipper) findViewById(R.id.Panel);
 		PageNum = (LinearLayout) findViewById(R.id.FunctionMenuNumber);
 	}
 
@@ -140,6 +200,7 @@ public class Main extends Activity implements OnPageChangeListener {
 		About.setText(getString(R.string.stu_name) + " | " + getString(R.string.stu_zipcode) + getString(R.string.stu_address) + " | TEL:" + getString(R.string.stu_phnoe));
 		FunctionPage = new ArrayList<View>();
 		initFunctionMenuitem();
+		initPanel();
 
 	}
 

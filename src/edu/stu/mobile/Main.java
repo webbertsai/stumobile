@@ -5,7 +5,6 @@ import java.util.HashMap;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -13,8 +12,9 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
@@ -31,19 +31,77 @@ public class Main extends Activity implements OnPageChangeListener {
 	LinearLayout PageNum;
 	String tag = "Main";
 	ArrayList<View> FunctionPage;
-
+	String PanelUrls[] = {
+			"http://freshman.stu.edu.tw/", "http://ccds2012.stu.edu.tw/"
+	};
 	private void initPanel() {
 		int PanelImages[] = {
 				R.drawable.a1, R.drawable.a2
 		};
 
-		String Urls[] = {
-				"http://freshman.stu.edu.tw/", "http://ccds2012.stu.edu.tw/"
-		};
+
 
 		Panel.setInAnimation(this, R.anim.in_leftright);
 		Panel.setOutAnimation(this, R.anim.out_leftright);
-		setPanelData(PanelImages, Urls);
+		Panel.setOnTouchListener(new OnTouchListener() {
+			private boolean isMove = false;
+			private double x, y;
+
+			public boolean onTouch(View v, MotionEvent event) {
+				switch (event.getAction()) {
+				
+				case MotionEvent.ACTION_DOWN:
+					this.x = event.getX();
+					this.y = event.getY();
+					break;
+
+				case MotionEvent.ACTION_UP:
+					double Judgment = x - event.getX();
+					if (Math.abs(Judgment) < 50 && Math.abs(this.y - event.getY()) < 50) {
+						startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(PanelUrls[Panel.getDisplayedChild()])));
+						break;
+					}
+					// 是否要自動換頁
+					Panel.setAutoStart(false);
+
+					// 由右向左
+					if (Judgment > 50 && isMove) {
+						Panel.setInAnimation(Main.this, R.anim.in_rightleft);
+						Panel.setOutAnimation(Main.this, R.anim.out_rightleft);
+						Panel.showNext();
+					}
+
+					// 由左向右
+					if (Judgment < -50 && isMove) {
+						Panel.setInAnimation(Main.this, R.anim.in_leftright);
+						Panel.setOutAnimation(Main.this, R.anim.out_leftright);
+						Panel.showPrevious();
+					}
+
+					Panel.getInAnimation().setAnimationListener(new AnimationListener() {
+
+						public void onAnimationEnd(Animation arg0) {
+							isMove = true;
+						}
+
+						public void onAnimationRepeat(Animation arg0) {
+
+						}
+
+						public void onAnimationStart(Animation arg0) {
+							isMove = false;
+						}
+
+					});
+
+					break;
+
+				}
+
+				return true;
+			}
+		});
+		setPanelData(PanelImages, PanelUrls);
 	}
 
 	private void setPanelData(int[] PaneImages, String[] Urls) {
@@ -57,33 +115,6 @@ public class Main extends Activity implements OnPageChangeListener {
 	private View newPanelView(int PaneImage, final String Url) {
 		View v = new View(this);
 		v.setBackgroundResource(PaneImage);
-		v.setOnClickListener(new OnClickListener() {
-
-			public void onClick(View arg0) {
-				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Url)));
-			}
-		});
-		v.setOnTouchListener(new OnTouchListener() {
-
-			private int x;
-
-			public boolean onTouch(View v, MotionEvent event) {
-				switch (event.getAction()) {
-				case MotionEvent.ACTION_UP:
-					if (event.getX() > x) {
-						System.out.println("右邊");
-					}
-					v.getBackground().setAlpha(255);
-					
-					break;
-				default:
-					this.x = (int) event.getX();
-					v.getBackground().setAlpha(150);
-				}
-
-				return false;
-			}
-		});
 		return v;
 	}
 

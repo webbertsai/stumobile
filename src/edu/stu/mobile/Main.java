@@ -43,15 +43,14 @@ public class Main extends Activity implements OnPageChangeListener {
 
 		Panel.setInAnimation(this, R.anim.in_leftright);
 		Panel.setOutAnimation(this, R.anim.out_leftright);
-		Panel.setAutoStart(true);
 		Panel.setFlipInterval(5000);
+		Panel.setAutoStart(true);
 		Panel.setOnTouchListener(new OnTouchListener() {
-			private boolean isMove = false;
+			private boolean isMove = true;
 			private double x, y;
 
 			public boolean onTouch(View v, MotionEvent event) {
 				switch (event.getAction()) {
-				
 				case MotionEvent.ACTION_DOWN:
 					this.x = event.getX();
 					this.y = event.getY();
@@ -59,21 +58,21 @@ public class Main extends Activity implements OnPageChangeListener {
 
 				case MotionEvent.ACTION_UP:
 					double Judgment = x - event.getX();
-					
+					System.out.println(Judgment);
 					if (Math.abs(Judgment) < 50 && Math.abs(this.y - event.getY()) < 50) {
 						startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(PanelUrls[Panel.getDisplayedChild()])));
 						break;
 					}
 
 					// 由右向左
-					if (Judgment > 50 && isMove) {
+					if (Judgment > 150 && isMove) {
 						Panel.setInAnimation(Main.this, R.anim.in_rightleft);
 						Panel.setOutAnimation(Main.this, R.anim.out_rightleft);
 						Panel.showNext();
 					}
 
 					// 由左向右
-					if (Judgment < -50 && isMove) {
+					if (Judgment < -150 && isMove) {
 						Panel.setInAnimation(Main.this, R.anim.in_leftright);
 						Panel.setOutAnimation(Main.this, R.anim.out_leftright);
 						Panel.showPrevious();

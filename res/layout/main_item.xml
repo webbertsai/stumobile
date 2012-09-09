@@ -5,12 +5,21 @@
     android:gravity="center"
     android:orientation="vertical" >
 
-    <View
+    <LinearLayout
         android:id="@+id/icon"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="8"
-        android:background="@android:color/white" />
+         >
+
+        <View
+            android:id="@+id/down"
+            android:visibility="gone"
+            android:background="@drawable/button_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/title"

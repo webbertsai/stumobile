@@ -5,7 +5,9 @@ import java.util.HashMap;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.RadioGroup.LayoutParams;
@@ -38,11 +40,22 @@ public class MainItem extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View view = inflater.inflate(R.layout.main_item, null);
 		if (data != null && data.size() > 0) {
-			View icon = ((View) view.findViewById(R.id.icon));
+			View icon = view.findViewById(R.id.icon);
 			icon.setBackgroundResource((Integer) data.get(position).get("icon"));
-			
 			icon.setLayoutParams(new LayoutParams((int) (this.errorH * 75), (int) (this.errorW * 75)));
 			((TextView) view.findViewById(R.id.title)).setText((String) data.get(position).get("title"));
+			final View down = view.findViewById(R.id.down);
+			view.setOnTouchListener(new OnTouchListener() {
+
+				public boolean onTouch(View v, MotionEvent event) {
+					if (event.getAction() == MotionEvent.ACTION_DOWN) {
+						down.findViewById(R.id.down).setVisibility(View.VISIBLE);
+					} else {
+						down.findViewById(R.id.down).setVisibility(View.GONE);
+					}
+					return true;
+				}
+			});
 
 		}
 

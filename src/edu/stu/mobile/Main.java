@@ -194,7 +194,10 @@ public class Main extends Activity implements OnPageChangeListener {
 			Log.e(tag, "功能頁面 icon 與 title 數量不同");
 			return;
 		}
-
+		
+		/*
+		 * 新增每一個FunctionMenu頁面及下方的頁碼 (黑點及藍點)
+		 */
 		for (int FunctionMenuPageDot = 1, PageDataMin = 0; FunctionMenuPageDot < (FunctionMenuIcon.length - 1) / 8 + 2; FunctionMenuPageDot++, PageDataMin += 8) {
 			int PageDataMax = FunctionMenuPageDot * 8;
 			if (FunctionMenuPageDot * 8 > FunctionMenuIcon.length) {

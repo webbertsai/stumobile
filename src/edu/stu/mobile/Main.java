@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -25,21 +26,16 @@ import edu.stu.mobile.util.ResolutionUtils;
 
 public class Main extends Activity implements OnPageChangeListener {
 
-	TextView About;
+	TextView about;
 	ViewPager FunctionMenu;
 	ViewFlipper Panel;
 	LinearLayout PageNum;
 	String tag = "Main";
 	ArrayList<View> FunctionPage;
-	String PanelUrls[] = {
-			"http://freshman.stu.edu.tw/", "http://ccds2012.stu.edu.tw/"
-	};
+	String PanelUrls[] = { "http://freshman.stu.edu.tw/", "http://ccds2012.stu.edu.tw/" };
+
 	private void initPanel() {
-		int PanelImages[] = {
-				R.drawable.a1, R.drawable.a2
-		};
-
-
+		int PanelImages[] = { R.drawable.a1, R.drawable.a2 };
 
 		Panel.setInAnimation(this, R.anim.in_leftright);
 		Panel.setOutAnimation(this, R.anim.out_leftright);
@@ -125,15 +121,13 @@ public class Main extends Activity implements OnPageChangeListener {
 	 */
 	private void initFunctionMenuitem() {
 		// 各功能Icon
-		int FunctionMenuIcon[] = {
-				R.drawable.ext_table, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.ext_table, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03,
-				R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03,
-		};
+		int FunctionMenuIcon[] = { R.drawable.ext_table, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03,
+				R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.ext_table, R.drawable.icon03,
+				R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, };
 
 		// 個功能名稱 （建議使用 Strings.xml 新增，以便多國語系使用）
-		String FunctionMenuText[] = {
-				getString(R.string.ext_table), "test", "test", "test", "test", "test", "test", "test", "test", getString(R.string.ext_table), "test", "test", "test", "test", "test", "test", "test", "test",
-		};
+		String FunctionMenuText[] = { getString(R.string.ext_table), "test", "test", "test", "test", "test", "test", "test", "test",
+				getString(R.string.ext_table), "test", "test", "test", "test", "test", "test", "test", "test", };
 
 		setFunctionMenuData(FunctionMenuIcon, FunctionMenuText);
 	}
@@ -144,15 +138,20 @@ public class Main extends Activity implements OnPageChangeListener {
 	 * @param number
 	 *            此點為第幾頁
 	 * @param color
-	 *            此點的顏色為何：1.藍色 2.黑色
+	 *            使用 Color.BLUE 即可取得藍點，若使用 Color.BLACK 即會得到黑點
 	 */
 	private void addFunctionMenuPagDot(int number, int color) {
 		View dot = new View(this);
-		if (color == 1) {
+
+		switch (color) {
+		case Color.BLUE:
 			dot.setBackgroundResource(R.drawable.dot_blue);
-		} else {
+			break;
+		case Color.BLACK:
 			dot.setBackgroundResource(R.drawable.dot_black);
+			break;
 		}
+
 		LayoutParams lp = new LayoutParams(10, 10);
 		lp.setMargins(5, 0, 5, 0);
 		dot.setLayoutParams(lp);
@@ -194,7 +193,7 @@ public class Main extends Activity implements OnPageChangeListener {
 			Log.e(tag, "功能頁面 icon 與 title 數量不同");
 			return;
 		}
-		
+
 		/*
 		 * 新增每一個FunctionMenu頁面及下方的頁碼 (黑點及藍點)
 		 */
@@ -212,10 +211,14 @@ public class Main extends Activity implements OnPageChangeListener {
 			}
 
 			FunctionPage.add(newBtnPage(FunctionMenuData));
+
+			/*
+			 * 新增下方頁碼初始化第一個點為藍色表示目前頁面位置
+			 */
 			if (FunctionMenuPageDot == 1) {
-				addFunctionMenuPagDot(0, 1);
+				addFunctionMenuPagDot(0, Color.BLUE);
 			} else {
-				addFunctionMenuPagDot(1, 2);
+				addFunctionMenuPagDot(1, Color.BLACK);
 			}
 		}
 
@@ -226,14 +229,15 @@ public class Main extends Activity implements OnPageChangeListener {
 	};
 
 	private void findViews() {
-		About = (TextView) findViewById(R.id.About);
+		about = (TextView) findViewById(R.id.About);
 		FunctionMenu = (ViewPager) findViewById(R.id.FunctionMenu);
 		Panel = (ViewFlipper) findViewById(R.id.Panel);
 		PageNum = (LinearLayout) findViewById(R.id.FunctionMenuNumber);
 	}
 
 	private void init() {
-		About.setText(getString(R.string.stu_name) + " | " + getString(R.string.stu_zipcode) + getString(R.string.stu_address) + " | TEL:" + getString(R.string.stu_phnoe));
+		about.setText(getString(R.string.stu_name) + " | " + getString(R.string.stu_zipcode) + getString(R.string.stu_address) + " | TEL:"
+				+ getString(R.string.stu_phnoe));
 		FunctionPage = new ArrayList<View>();
 		initFunctionMenuitem();
 		initPanel();
@@ -264,7 +268,7 @@ public class Main extends Activity implements OnPageChangeListener {
 	public void onPageSelected(int arg0) {
 		PageNum.removeViewAt(CurrentlyPages);
 		CurrentlyPages = arg0;
-		addFunctionMenuPagDot(arg0, 1);
+		addFunctionMenuPagDot(arg0, Color.BLUE);
 	}
 
 }

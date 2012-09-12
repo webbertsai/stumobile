@@ -34,17 +34,18 @@ public class Main extends Activity implements OnPageChangeListener {
 	private List<View> functionPage;
 	private String PanelUrls[] = { "http://freshman.stu.edu.tw/", "http://ccds2012.stu.edu.tw/" };
 	private final String tag = "Main";
-	private int CurrentlyPages = 0;
+	private int CurrentPag = 0;
 
 	private void initPanel() {
 		int PanelImages[] = { R.drawable.a1, R.drawable.a2 };
-
+		// 動畫輪播更換頻率 (ms)
+		int rateFlash = 5000;
 		panel.setInAnimation(this, R.anim.in_leftright);
 		panel.setOutAnimation(this, R.anim.out_leftright);
-		panel.setFlipInterval(5000);
+		panel.setFlipInterval(rateFlash);
 		panel.setAutoStart(true);
 		panel.setOnTouchListener(new OnTouchListener() {
-			private boolean isMoveing = true;
+			private boolean isMoveing = false;
 			private double x, y;
 
 			public boolean onTouch(View v, MotionEvent event) {
@@ -61,7 +62,7 @@ public class Main extends Activity implements OnPageChangeListener {
 						break;
 					}
 
-					if (isMoveing) {
+					if (!isMoveing) {
 						if (Judgment > 150) {
 							panel.setInAnimation(Main.this, R.anim.in_rightleft);
 							panel.setOutAnimation(Main.this, R.anim.out_rightleft);
@@ -77,7 +78,7 @@ public class Main extends Activity implements OnPageChangeListener {
 
 						public void onAnimationEnd(Animation arg0) {
 							panel.setAutoStart(true);
-							isMoveing = true;
+							isMoveing = false;
 						}
 
 						public void onAnimationRepeat(Animation arg0) {
@@ -86,7 +87,7 @@ public class Main extends Activity implements OnPageChangeListener {
 
 						public void onAnimationStart(Animation arg0) {
 							panel.setAutoStart(false);
-							isMoveing = false;
+							isMoveing = true;
 						}
 
 					});
@@ -99,18 +100,16 @@ public class Main extends Activity implements OnPageChangeListener {
 			}
 		});
 
-		setPanelData(PanelImages, PanelUrls);
+		setPanelData(PanelImages);
 	}
 
-	private void setPanelData(int[] PaneImages, String[] Urls) {
-		if (PaneImages.length == Urls.length) {
-			for (int index = 0; index < PaneImages.length; index++) {
-				panel.addView(newPanelView(PaneImages[index], Urls[index]));
-			}
+	private void setPanelData(int[] PaneImages) {
+		for (int index = 0; index < PaneImages.length; index++) {
+			panel.addView(newPanelView(PaneImages[index]));
 		}
 	}
 
-	private View newPanelView(int PaneImage, final String Url) {
+	private View newPanelView(int PaneImage) {
 		View v = new View(this);
 		v.setBackgroundResource(PaneImage);
 		return v;
@@ -187,24 +186,31 @@ public class Main extends Activity implements OnPageChangeListener {
 	}
 
 	private void setFunctionMenuData(int[] FunctionMenuIcon, String[] FunctionMenuText) {
+		if (FunctionMenuIcon != null && FunctionMenuText != null) {
+			return;
+		}
 
+		if (FunctionMenuIcon.length == 0 && FunctionMenuText.length == 0) {
+			return;
+		}
+		
 		// icon 與 title 相同數量才會新增
 		if (FunctionMenuText.length != FunctionMenuIcon.length) {
 			Log.e(tag, "功能頁面 icon 與 title 數量不同");
 			return;
 		}
-		
-		int PageAllNum = (FunctionMenuIcon.length - 1) / 8 + 2;
+
+		int totalPageNum = (FunctionMenuIcon.length - 1) / 8 + 2;
 
 		/*
 		 * 新增每一個FunctionMenu頁面及下方的頁碼 (黑點及藍點)
 		 */
-		for (int FunctionMenuPageDot = 1, PageDataMin = 0; FunctionMenuPageDot < PageAllNum ; FunctionMenuPageDot++, PageDataMin += 8) {
+		for (int FunctionMenuPageDot = 1, PageDataMin = 0; FunctionMenuPageDot < totalPageNum; FunctionMenuPageDot++, PageDataMin += 8) {
 			int PageDataMax = FunctionMenuPageDot * 8;
 			if (FunctionMenuPageDot * 8 > FunctionMenuIcon.length) {
 				PageDataMax = FunctionMenuIcon.length;
 			}
-			ArrayList<HashMap<String, Object>> FunctionMenuData = new ArrayList<HashMap<String, Object>>();
+			List<HashMap<String, Object>> FunctionMenuData = new ArrayList<HashMap<String, Object>>();
 			for (int FunctionMenuPageData = PageDataMin; FunctionMenuPageData < PageDataMax; FunctionMenuPageData++) {
 				HashMap<String, Object> index = new HashMap<String, Object>();
 				index.put("title", FunctionMenuText[FunctionMenuPageData]);
@@ -266,8 +272,8 @@ public class Main extends Activity implements OnPageChangeListener {
 
 	@Override
 	public void onPageSelected(int arg0) {
-		pageNum.removeViewAt(CurrentlyPages);
-		CurrentlyPages = arg0;
+		pageNum.removeViewAt(CurrentPag);
+		CurrentPag = arg0;
 		addFunctionMenuPagDot(arg0, Color.BLUE);
 	}
 

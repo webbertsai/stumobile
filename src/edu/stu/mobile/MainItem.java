@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
+import android.support.v4.app.NotificationCompat.Action;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -48,9 +50,11 @@ public class MainItem extends BaseAdapter {
 			view.setOnTouchListener(new OnTouchListener() {
 
 				public boolean onTouch(View v, MotionEvent event) {
+					//Log.w("TouchEvent",""+v.getId()+"==="+event.getAction());
 					if (event.getAction() == MotionEvent.ACTION_DOWN) {
 						down.findViewById(R.id.down).setVisibility(View.VISIBLE);
-					} else {
+						return false;
+					} else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL){
 						down.findViewById(R.id.down).setVisibility(View.GONE);
 					}
 					return true;

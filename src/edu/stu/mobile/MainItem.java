@@ -53,7 +53,6 @@ public class MainItem extends BaseAdapter {
 					//Log.w("TouchEvent",""+v.getId()+"==="+event.getAction());
 					if (event.getAction() == MotionEvent.ACTION_DOWN) {
 						down.findViewById(R.id.down).setVisibility(View.VISIBLE);
-						return false;
 					} else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL){
 						down.findViewById(R.id.down).setVisibility(View.GONE);
 					}

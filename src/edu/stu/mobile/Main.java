@@ -2,6 +2,7 @@ package edu.stu.mobile;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -26,23 +27,24 @@ import edu.stu.mobile.util.ResolutionUtils;
 
 public class Main extends Activity implements OnPageChangeListener {
 
-	TextView about;
-	ViewPager FunctionMenu;
-	ViewFlipper Panel;
-	LinearLayout PageNum;
-	String tag = "Main";
-	ArrayList<View> FunctionPage;
-	String PanelUrls[] = { "http://freshman.stu.edu.tw/", "http://ccds2012.stu.edu.tw/" };
+	private TextView about;
+	private ViewPager functionMenu;
+	private ViewFlipper panel;
+	private LinearLayout pageNum;
+	private List<View> functionPage;
+	private String PanelUrls[] = { "http://freshman.stu.edu.tw/", "http://ccds2012.stu.edu.tw/" };
+	private final String tag = "Main";
+	private int CurrentlyPages = 0;
 
 	private void initPanel() {
 		int PanelImages[] = { R.drawable.a1, R.drawable.a2 };
 
-		Panel.setInAnimation(this, R.anim.in_leftright);
-		Panel.setOutAnimation(this, R.anim.out_leftright);
-		Panel.setFlipInterval(5000);
-		Panel.setAutoStart(true);
-		Panel.setOnTouchListener(new OnTouchListener() {
-			private boolean isMove = true;
+		panel.setInAnimation(this, R.anim.in_leftright);
+		panel.setOutAnimation(this, R.anim.out_leftright);
+		panel.setFlipInterval(5000);
+		panel.setAutoStart(true);
+		panel.setOnTouchListener(new OnTouchListener() {
+			private boolean isMoveing = true;
 			private double x, y;
 
 			public boolean onTouch(View v, MotionEvent event) {
@@ -54,31 +56,28 @@ public class Main extends Activity implements OnPageChangeListener {
 
 				case MotionEvent.ACTION_UP:
 					double Judgment = x - event.getX();
-					System.out.println(Judgment);
 					if (Math.abs(Judgment) < 50 && Math.abs(this.y - event.getY()) < 50) {
-						startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(PanelUrls[Panel.getDisplayedChild()])));
+						startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(PanelUrls[panel.getDisplayedChild()])));
 						break;
 					}
 
-					// 由右向左
-					if (Judgment > 150 && isMove) {
-						Panel.setInAnimation(Main.this, R.anim.in_rightleft);
-						Panel.setOutAnimation(Main.this, R.anim.out_rightleft);
-						Panel.showNext();
+					if (isMoveing) {
+						if (Judgment > 150) {
+							panel.setInAnimation(Main.this, R.anim.in_rightleft);
+							panel.setOutAnimation(Main.this, R.anim.out_rightleft);
+							panel.showNext();
+						} else {
+							panel.setInAnimation(Main.this, R.anim.in_leftright);
+							panel.setOutAnimation(Main.this, R.anim.out_leftright);
+							panel.showPrevious();
+						}
 					}
 
-					// 由左向右
-					if (Judgment < -150 && isMove) {
-						Panel.setInAnimation(Main.this, R.anim.in_leftright);
-						Panel.setOutAnimation(Main.this, R.anim.out_leftright);
-						Panel.showPrevious();
-					}
-
-					Panel.getInAnimation().setAnimationListener(new AnimationListener() {
+					panel.getInAnimation().setAnimationListener(new AnimationListener() {
 
 						public void onAnimationEnd(Animation arg0) {
-							Panel.setAutoStart(true);
-							isMove = true;
+							panel.setAutoStart(true);
+							isMoveing = true;
 						}
 
 						public void onAnimationRepeat(Animation arg0) {
@@ -86,8 +85,8 @@ public class Main extends Activity implements OnPageChangeListener {
 						}
 
 						public void onAnimationStart(Animation arg0) {
-							Panel.setAutoStart(false);
-							isMove = false;
+							panel.setAutoStart(false);
+							isMoveing = false;
 						}
 
 					});
@@ -99,13 +98,14 @@ public class Main extends Activity implements OnPageChangeListener {
 				return true;
 			}
 		});
+
 		setPanelData(PanelImages, PanelUrls);
 	}
 
 	private void setPanelData(int[] PaneImages, String[] Urls) {
 		if (PaneImages.length == Urls.length) {
 			for (int index = 0; index < PaneImages.length; index++) {
-				Panel.addView(newPanelView(PaneImages[index], Urls[index]));
+				panel.addView(newPanelView(PaneImages[index], Urls[index]));
 			}
 		}
 	}
@@ -155,10 +155,10 @@ public class Main extends Activity implements OnPageChangeListener {
 		LayoutParams lp = new LayoutParams(10, 10);
 		lp.setMargins(5, 0, 5, 0);
 		dot.setLayoutParams(lp);
-		PageNum.addView(dot, number);
+		pageNum.addView(dot, number);
 	}
 
-	private View newBtnPage(ArrayList<HashMap<String, Object>> FunctionMenuData) {
+	private View newBtnPage(List<HashMap<String, Object>> FunctionMenuData) {
 		GridView page = new GridView(this);
 		// 一列最多幾個項目
 		page.setNumColumns(4);
@@ -193,11 +193,13 @@ public class Main extends Activity implements OnPageChangeListener {
 			Log.e(tag, "功能頁面 icon 與 title 數量不同");
 			return;
 		}
+		
+		int PageAllNum = (FunctionMenuIcon.length - 1) / 8 + 2;
 
 		/*
 		 * 新增每一個FunctionMenu頁面及下方的頁碼 (黑點及藍點)
 		 */
-		for (int FunctionMenuPageDot = 1, PageDataMin = 0; FunctionMenuPageDot < (FunctionMenuIcon.length - 1) / 8 + 2; FunctionMenuPageDot++, PageDataMin += 8) {
+		for (int FunctionMenuPageDot = 1, PageDataMin = 0; FunctionMenuPageDot < PageAllNum ; FunctionMenuPageDot++, PageDataMin += 8) {
 			int PageDataMax = FunctionMenuPageDot * 8;
 			if (FunctionMenuPageDot * 8 > FunctionMenuIcon.length) {
 				PageDataMax = FunctionMenuIcon.length;
@@ -210,7 +212,7 @@ public class Main extends Activity implements OnPageChangeListener {
 				FunctionMenuData.add(index);
 			}
 
-			FunctionPage.add(newBtnPage(FunctionMenuData));
+			functionPage.add(newBtnPage(FunctionMenuData));
 
 			/*
 			 * 新增下方頁碼初始化第一個點為藍色表示目前頁面位置
@@ -222,23 +224,23 @@ public class Main extends Activity implements OnPageChangeListener {
 			}
 		}
 
-		FunctionMenu.setAdapter(new ViewPagerAdapter(FunctionPage));
-		FunctionMenu.setCurrentItem(0);
-		FunctionMenu.setOnPageChangeListener(this);
+		functionMenu.setAdapter(new ViewPagerAdapter(functionPage));
+		functionMenu.setCurrentItem(0);
+		functionMenu.setOnPageChangeListener(this);
 
 	};
 
 	private void findViews() {
 		about = (TextView) findViewById(R.id.About);
-		FunctionMenu = (ViewPager) findViewById(R.id.FunctionMenu);
-		Panel = (ViewFlipper) findViewById(R.id.Panel);
-		PageNum = (LinearLayout) findViewById(R.id.FunctionMenuNumber);
+		functionMenu = (ViewPager) findViewById(R.id.FunctionMenu);
+		panel = (ViewFlipper) findViewById(R.id.Panel);
+		pageNum = (LinearLayout) findViewById(R.id.FunctionMenuNumber);
 	}
 
 	private void init() {
 		about.setText(getString(R.string.stu_name) + " | " + getString(R.string.stu_zipcode) + getString(R.string.stu_address) + " | TEL:"
 				+ getString(R.string.stu_phnoe));
-		FunctionPage = new ArrayList<View>();
+		functionPage = new ArrayList<View>();
 		initFunctionMenuitem();
 		initPanel();
 
@@ -262,11 +264,9 @@ public class Main extends Activity implements OnPageChangeListener {
 
 	}
 
-	int CurrentlyPages = 0;
-
 	@Override
 	public void onPageSelected(int arg0) {
-		PageNum.removeViewAt(CurrentlyPages);
+		pageNum.removeViewAt(CurrentlyPages);
 		CurrentlyPages = arg0;
 		addFunctionMenuPagDot(arg0, Color.BLUE);
 	}

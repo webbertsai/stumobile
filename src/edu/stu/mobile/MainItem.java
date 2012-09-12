@@ -1,7 +1,7 @@
 package edu.stu.mobile;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,10 +15,10 @@ import android.widget.TextView;
 
 public class MainItem extends BaseAdapter {
 	private LayoutInflater inflater;
-	private ArrayList<HashMap<String, Object>> data;
+	private List<HashMap<String, Object>> data;
 	private double errorW, errorH;
 
-	MainItem(Context context, ArrayList<HashMap<String, Object>> data, double errorW, double errorH) {
+	MainItem(Context context, List<HashMap<String, Object>> data, double errorW, double errorH) {
 		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		this.data = data;
 		this.errorH = errorH;

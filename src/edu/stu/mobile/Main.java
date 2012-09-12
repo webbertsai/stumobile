@@ -33,7 +33,7 @@ public class Main extends Activity implements OnPageChangeListener {
 	private LinearLayout pageNum;
 	private List<View> functionPage;
 	private String PanelUrls[] = { "http://freshman.stu.edu.tw/", "http://ccds2012.stu.edu.tw/" };
-	private final String tag = "Main";
+	private final String TAG = "Main";
 	private int CurrentPag = 0;
 
 	private void initPanel() {
@@ -104,8 +104,10 @@ public class Main extends Activity implements OnPageChangeListener {
 	}
 
 	private void setPanelData(int[] PaneImages) {
-		for (int index = 0; index < PaneImages.length; index++) {
-			panel.addView(newPanelView(PaneImages[index]));
+		if (PaneImages != null) {
+			for (int index = 0; index < PaneImages.length; index++) {
+				panel.addView(newPanelView(PaneImages[index]));
+			}
 		}
 	}
 
@@ -186,17 +188,16 @@ public class Main extends Activity implements OnPageChangeListener {
 	}
 
 	private void setFunctionMenuData(int[] FunctionMenuIcon, String[] FunctionMenuText) {
-		if (FunctionMenuIcon != null && FunctionMenuText != null) {
+		if (FunctionMenuIcon == null || FunctionMenuText == null) {
 			return;
 		}
 
-		if (FunctionMenuIcon.length == 0 && FunctionMenuText.length == 0) {
+		if (FunctionMenuIcon.length == 0 || FunctionMenuText.length == 0) {
 			return;
 		}
-		
+
 		// icon 與 title 相同數量才會新增
 		if (FunctionMenuText.length != FunctionMenuIcon.length) {
-			Log.e(tag, "功能頁面 icon 與 title 數量不同");
 			return;
 		}
 

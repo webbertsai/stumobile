@@ -3,6 +3,7 @@ package edu.stu.mobile;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import android.R;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;

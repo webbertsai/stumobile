@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -32,12 +31,16 @@ public class Main extends Activity implements OnPageChangeListener {
 	private ViewFlipper panel;
 	private LinearLayout pageNum;
 	private List<View> functionPage;
-	private String PanelUrls[] = { "http://freshman.stu.edu.tw/", "http://ccds2012.stu.edu.tw/" };
+	private String PanelUrls[] = {
+			"http://freshman.stu.edu.tw/", "http://ccds2012.stu.edu.tw/"
+	};
 	private final String TAG = "Main";
 	private int CurrentPag = 0;
 
 	private void initPanel() {
-		int PanelImages[] = { R.drawable.a1, R.drawable.a2 };
+		int PanelImages[] = {
+				R.drawable.a1, R.drawable.a2
+		};
 		// 動畫輪播更換頻率 (ms)
 		int rateFlash = 5000;
 		panel.setInAnimation(this, R.anim.in_leftright);
@@ -122,13 +125,15 @@ public class Main extends Activity implements OnPageChangeListener {
 	 */
 	private void initFunctionMenuitem() {
 		// 各功能Icon
-		int FunctionMenuIcon[] = { R.drawable.ext_table, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03,
-				R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.ext_table, R.drawable.icon03,
-				R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, };
+		int FunctionMenuIcon[] = {
+				R.drawable.ext_table, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.ext_table, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03,
+				R.drawable.icon03, R.drawable.icon03, R.drawable.icon03, R.drawable.icon03,
+		};
 
 		// 個功能名稱 （建議使用 Strings.xml 新增，以便多國語系使用）
-		String FunctionMenuText[] = { getString(R.string.ext_table), "test", "test", "test", "test", "test", "test", "test", "test",
-				getString(R.string.ext_table), "test", "test", "test", "test", "test", "test", "test", "test", };
+		String FunctionMenuText[] = {
+				getString(R.string.ext_table), "test", "test", "test", "test", "test", "test", "test", "test", getString(R.string.ext_table), "test", "test", "test", "test", "test", "test", "test", "test",
+		};
 
 		setFunctionMenuData(FunctionMenuIcon, FunctionMenuText);
 	}
@@ -245,8 +250,7 @@ public class Main extends Activity implements OnPageChangeListener {
 	}
 
 	private void init() {
-		about.setText(getString(R.string.stu_name) + " | " + getString(R.string.stu_zipcode) + getString(R.string.stu_address) + " | TEL:"
-				+ getString(R.string.stu_phnoe));
+		about.setText(getString(R.string.stu_name) + " | " + getString(R.string.stu_zipcode) + getString(R.string.stu_address) + " | TEL:" + getString(R.string.stu_phnoe));
 		functionPage = new ArrayList<View>();
 		initFunctionMenuitem();
 		initPanel();

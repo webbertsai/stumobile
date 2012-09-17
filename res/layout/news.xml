@@ -27,7 +27,6 @@
                 android:layout_weight="1" />
 
             <TextView
-                android:textColor="@android:color/white"
                 style="@style/Text_Bigtitle"
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
@@ -35,7 +34,8 @@
                 android:background="@drawable/break_button_down"
                 android:gravity="center"
                 android:paddingLeft="10dp"
-                android:text="@string/barek" />
+                android:text="@string/barek"
+                android:textColor="@android:color/white" />
 
             <View
                 android:layout_width="fill_parent"
@@ -58,56 +58,13 @@
             android:textColor="@android:color/white" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.7"
-        android:background="@color/transparent" >
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:background="@drawable/button_green2"
-            android:gravity="center" >
-
-            <TextView
-                style="@style/Text_Bigtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="熱門"
-                android:textColor="@android:color/white" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:background="@drawable/button_blue2" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:background="@drawable/button_blue2" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:background="@drawable/button_blue2" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:background="@drawable/button_blue2" />
-    </LinearLayout>
+   
 
     <ListView
+        android:id="@+id/list_news"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="9"
+        android:layout_weight="9.7"
         android:background="@color/red" >
     </ListView>
 
@@ -117,23 +74,68 @@
         android:layout_weight="1.5"
         android:background="@color/transparent" >
 
-        <View
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:background="@drawable/button_green" />
+            android:background="@drawable/button_green"
+            android:gravity="center"
+            android:orientation="vertical" >
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:background="@drawable/button_blue" />
+            <View
+                android:layout_width="40dip"
+                android:layout_height="40dip"
+                android:background="@drawable/news" />
 
-        <View
+            <TextView
+                style="@style/Text_Subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/news"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:background="@drawable/button_green" />
+            android:background="@drawable/button_blue"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <View
+                android:layout_width="40dip"
+                android:layout_height="40dip"
+                android:background="@drawable/home" />
+
+            <TextView
+                style="@style/Text_Subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/home"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/button_green"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <View
+                android:layout_width="40dip"
+                android:layout_height="40dip"
+                android:background="@drawable/freshman" />
+
+            <TextView
+                style="@style/Text_Subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/freshman"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

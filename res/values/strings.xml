@@ -13,7 +13,13 @@
     <string name="news">最新消息</string>
     <string name="home">樹德首頁</string>
     <string name="freshman">新生導覽</string>
-    
+
+    <!-- news -->
+    <string name="hot">熱門</string>
+    <string name="campus">校園</string>
+    <string name="glory">榮譽</string>
+    <string name="registration">招生</string>
+    <string name="life">生活</string>
     <string name="barek">返回</string>
     <string name="need">需要</string>
     <string name="notneed">不需要</string>

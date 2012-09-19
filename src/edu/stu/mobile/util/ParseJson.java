@@ -1,5 +1,7 @@
 package edu.stu.mobile.util;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
@@ -29,24 +31,23 @@ public class ParseJson {
 
 	}
 
-	public static String parseJson(String jsonDataString, List<String> name) {
+	public static List<HashMap<String, String>> parseJson(String jsonDataString, List<String> name) {
 
-		StringBuffer data = new StringBuffer();
+		List<HashMap<String, String>> data = new ArrayList<HashMap<String, String>>();
 		try {
 			JSONArray jsonArray = new JSONArray(jsonDataString);
-			String tmp = "";
 			for (int i = 0; i < jsonArray.length(); i++) {
 				JSONObject webserviceData = jsonArray.getJSONObject(i);
 				for (int j = 0; j < name.size(); j++) {
-					tmp += webserviceData.getString(name.get(j));
+					HashMap<String, String> map = new HashMap<String, String>();
+					map.put(name.get(j), webserviceData.get(name.get(j)).toString());
+					data.add(map);
 				}
-				data.append(tmp + ";");
 			}
-			data.delete(data.length() - 1, data.length());
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 
-		return data.toString();
+		return data;
 	}
 }

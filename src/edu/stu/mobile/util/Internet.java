@@ -3,6 +3,7 @@ package edu.stu.mobile.util;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 
 public class Internet {
 	private NetworkInfo info = null;
@@ -18,8 +19,9 @@ public class Internet {
 	 * @param context 必要參數
 	 * @return true 為可以使用
 	 */
-	public boolean isAvailable(Context context) {
+	boolean isAvailable() {
 		if (info == null) {
+			Log.w("intent", "null");
 			return false;
 		}
 		return info.isAvailable();
@@ -29,10 +31,11 @@ public class Internet {
 	 * 網路是否已連接
 	 * 
 	 * @param context 必要參數
-	 * @return true 為可以使用
+	 * @return true 為已連線
 	 */
-	public boolean isConnected(Context context) {
+	public boolean isConnected() {
 		if (info == null) {
+			Log.w("intent", "null");
 			return false;
 		}
 		return info.isConnected();
@@ -42,19 +45,49 @@ public class Internet {
 	 * 網路是否已連接或連線中
 	 * 
 	 * @param context 必要參數
-	 * @return true 為可以使用
+	 * @return true 為連線或連接忠
 	 */
-	public boolean isConnectedOrConnecting(Context context) {
+	public boolean isConnectedOrConnecting() {
 		if (info == null) {
+			Log.w("intent", "null");
 			return false;
 		}
 		return info.isConnectedOrConnecting();
 	}
-	
-	public boolean isFailover(Context contxt) {
+
+	/**
+	 * 網路目前是否有問題
+	 * 
+	 * @param context 必要參數
+	 * @return false 為沒有問題
+	 */
+	public boolean isFailover() {
 		if (info == null) {
+			Log.w("intent", "null");
 			return false;
 		}
 		return info.isFailover();
+	}
+
+
+	/**
+	 * 判斷網路是否擁有對外連線能力
+	 * 
+	 * @param context 必要參數
+	 * @return false 為沒有問題
+	 */
+	public Boolean isWanConnect(String str) {
+		Boolean connent = false;
+		try {
+			Process p = Runtime.getRuntime().exec("ping -c 1 " + str);
+			int status = p.waitFor();
+			if (status == 0) {
+				connent = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return connent;
 	}
 }

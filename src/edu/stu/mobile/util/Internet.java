@@ -91,6 +91,10 @@ public class Internet {
 		return connent;
 	}
 	
+	/**
+	 * 判斷是否有開啟網路連線機制
+	 * @return true 有開啟 3G / wifi
+	 */
 	public Boolean checkInternet() {
 		if (info == null) {
 			return false;

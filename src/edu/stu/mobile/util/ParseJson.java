@@ -38,11 +38,12 @@ public class ParseJson {
 			JSONArray jsonArray = new JSONArray(jsonDataString);
 			for (int i = 0; i < jsonArray.length(); i++) {
 				JSONObject webserviceData = jsonArray.getJSONObject(i);
+				HashMap<String, String> map = new HashMap<String, String>();
 				for (int j = 0; j < name.size(); j++) {
-					HashMap<String, String> map = new HashMap<String, String>();
+					System.out.println(name.get(j));
 					map.put(name.get(j), webserviceData.get(name.get(j)).toString());
-					data.add(map);
 				}
+				data.add(map);
 			}
 		} catch (Exception e) {
 			System.out.println(e);

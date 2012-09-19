@@ -11,7 +11,7 @@ public class Internet {
 	public Internet(Context context) {
 		ConnectivityManager CM = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 		info = CM.getActiveNetworkInfo();
-	}
+	 }
 
 	/**
 	 * 目前網路是否可使用
@@ -89,5 +89,24 @@ public class Internet {
 		}
 
 		return connent;
+	}
+	
+	public Boolean checkInternet() {
+		if (info == null) {
+			return false;
+		}
+		String status = info.getTypeName();
+		String wifi = "WIFI";
+		// 3G
+		String imt2000 = "mobile";
+		
+		if (status.equals(wifi)) {
+			return true;
+		}
+		
+		if (status.equals(imt2000)) {
+			return true;
+		}
+		return false;
 	}
 }

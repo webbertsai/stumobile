@@ -31,7 +31,7 @@ public class ParseJson {
 
 	public static String parseJson(String jsonDataString, List<String> name) {
 
-		String data = "";
+		StringBuffer data = new StringBuffer();
 		try {
 			JSONArray jsonArray = new JSONArray(jsonDataString);
 			String tmp = "";
@@ -40,12 +40,13 @@ public class ParseJson {
 				for (int j = 0; j < name.size(); j++) {
 					tmp += webserviceData.getString(name.get(j));
 				}
-				data += tmp + ";";
+				data.append(tmp + ";");
 			}
+			data.delete(data.length() - 1, data.length());
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 
-		return data;
+		return data.toString();
 	}
 }

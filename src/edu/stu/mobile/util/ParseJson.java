@@ -31,7 +31,7 @@ public class ParseJson {
 
 	}
 
-	public static List<HashMap<String, String>> parseJson(String jsonDataString, List<String> name) {
+	public static List<HashMap<String, String>> parseJson(String jsonDataString, String[] name) {
 
 		List<HashMap<String, String>> data = new ArrayList<HashMap<String, String>>();
 		try {
@@ -39,12 +39,13 @@ public class ParseJson {
 			for (int i = 0; i < jsonArray.length(); i++) {
 				JSONObject webserviceData = jsonArray.getJSONObject(i);
 				HashMap<String, String> map = new HashMap<String, String>();
-				for (int j = 0; j < name.size(); j++) {
-					System.out.println(name.get(j));
-					map.put(name.get(j), webserviceData.get(name.get(j)).toString());
+				for (int j = 0; j < name.length; j++) {
+					map.put(name[j], webserviceData.get(name[j]).toString());
 				}
 				data.add(map);
 			}
+			
+			
 		} catch (Exception e) {
 			System.out.println(e);
 		}

@@ -82,6 +82,7 @@ public class Main extends Activity implements OnPageChangeListener {
 						public void onAnimationEnd(Animation arg0) {
 							panel.setAutoStart(true);
 							isMoveing = false;
+							panel.stopFlipping();
 						}
 
 						public void onAnimationRepeat(Animation arg0) {
@@ -116,6 +117,8 @@ public class Main extends Activity implements OnPageChangeListener {
 
 	private View newPanelView(int PaneImage) {
 		View v = new View(this);
+		// -2 is wrap_cotent
+		v.setLayoutParams(new LayoutParams(-2, -2));
 		v.setBackgroundResource(PaneImage);
 		return v;
 	}

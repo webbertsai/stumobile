@@ -81,14 +81,17 @@ public class News extends Activity {
 		if (checkIntrent()) {
 			new Thread() {
 				public void run() {
+
 					super.run();
 					newsData = ParseJson.parseJson(ParseJson.getWebserviceJson("http://www.stu.edu.tw/news/this-month.json"), dataKey);
 					Message msg = new Message();
 					msg.what = parseJsonEnd;
 					mHandler.sendMessage(msg);
+
 				}
-			};
+			}.start();
 		}
+
 	}
 
 	Handler mHandler = new Handler() {

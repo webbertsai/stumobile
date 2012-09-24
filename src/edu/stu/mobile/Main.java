@@ -129,8 +129,8 @@ public class Main extends Activity implements OnPageChangeListener {
 	private void initFunctionMenuitem() {
 		// 各功能Icon
 		int FunctionMenuIcon[] = {
-				R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table,
-				R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table,
+				R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table,
+				R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table,
 		};
 
 		// 個功能名稱 （建議使用 Strings.xml 新增，以便多國語系使用）
@@ -266,6 +266,23 @@ public class Main extends Activity implements OnPageChangeListener {
 		setContentView(R.layout.main);
 		findViews();
 		init();
+	}
+
+	// 按鈕監聽事件
+	public void movePage(View v) {
+		Class Page = null;
+		switch (v.getId()) {
+		case R.id.news:
+			Page = News.class;
+			break;
+		}
+
+		if (Page != null) {
+			Intent PageIntent = new Intent();
+			PageIntent.setClass(this, Page);
+			PageIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+			startActivity(new Intent(this, Page));
+		}
 	}
 
 	@Override

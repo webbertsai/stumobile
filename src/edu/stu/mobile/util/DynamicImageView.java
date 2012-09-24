@@ -10,7 +10,6 @@ import android.widget.RelativeLayout;
 public class DynamicImageView extends ImageView {
 	private Matrix matrix = null;
 	private Context context = null;
-	private String Tag = "DynamicImageView";
 
 	/**
 	 * 初始化ImageView

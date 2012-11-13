@@ -73,11 +73,31 @@ public class News extends Activity {
 		listNews = (ListView) findViewById(R.id.list_news);
 	}
 
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.news);
 		findViews();
 		lodeing = ProgressDialog.show(this, getString(R.string.Lodeing), getString(R.string.LodeingContext));
+
+		new Thread() {
+			public void run() {
+				if (checkIntrent()) {
+					super.run();
+					newsData = ParseJson.parseJson(ParseJson.getWebserviceJson("http://www.stu.edu.tw/news/this-month.json"), dataKey);
+					Message msg = new Message();
+					msg.what = parseJsonEnd;
+					mHandler.sendMessage(msg);
+				}
+
+			}
+		}.start();
+
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
 		if (checkIntrent()) {
 			new Thread() {
 				public void run() {
@@ -91,8 +111,7 @@ public class News extends Activity {
 				}
 			}.start();
 		}
-
-	}
+	};
 
 	Handler mHandler = new Handler() {
 		@Override

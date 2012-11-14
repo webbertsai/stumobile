@@ -129,13 +129,12 @@ public class Main extends Activity implements OnPageChangeListener {
 	private void initFunctionMenuitem() {
 		// 各功能Icon
 		int FunctionMenuIcon[] = {
-				R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table,
-				R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table, R.drawable.ext_table,
+				R.drawable.ext_table,
 		};
 
 		// 個功能名稱 （建議使用 Strings.xml 新增，以便多國語系使用）
 		String FunctionMenuText[] = {
-				getString(R.string.ext_table), "test", "test", "test", "test", "test", "test", "test", "test", getString(R.string.ext_table), "test", "test", "test", "test", "test", "test", "test", "test",
+				getString(R.string.ext_table),
 		};
 
 		setFunctionMenuData(FunctionMenuIcon, FunctionMenuText);

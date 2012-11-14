@@ -17,6 +17,8 @@ import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -27,23 +29,22 @@ public class News extends Activity {
 	private ListView listNews;
 	List<HashMap<String, String>> newsData;
 	private ProgressDialog lodeing;
-	private String[] dataKey = {
-			"id", "title", "start_date", "senderdept", "sendername", "senderext"
-	};
+	private String[] dataKey = { "id", "title", "start_date", "senderdept", "sendername", "senderext" };
 	private static final int parseJsonEnd = 1;
 
 	private boolean checkIntrent() {
 		Internet internet = new Internet(this);
 		if (!internet.checkInternet()) {
-			new AlertDialog.Builder(this).setTitle("請選擇網路連線方式").setMessage("需要有網路連線才能夠讀取資料！！").setPositiveButton("WIFI", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int whichButton) {
-					startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
-				}
-			}).setNegativeButton("3G", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int whichButton) {
-					startActivity(new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS));
-				}
-			}).show();
+			new AlertDialog.Builder(this).setTitle("請選擇網路連線方式").setMessage("需要有網路連線才能夠讀取資料！！")
+					.setPositiveButton("WIFI", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int whichButton) {
+							startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+						}
+					}).setNegativeButton("3G", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int whichButton) {
+							startActivity(new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS));
+						}
+					}).show();
 
 			if (lodeing != null)
 				lodeing.dismiss();
@@ -51,15 +52,16 @@ public class News extends Activity {
 		}
 
 		if (!internet.isWanConnect("8.8.8.8")) {
-			new AlertDialog.Builder(this).setTitle("尚未擁有對外連線能力或網路不穩定").setMessage("請問是否需要開啟瀏覽器進行帳網路號密碼驗證！！").setPositiveButton("要", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int whichButton) {
-					startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.stu.edu.tw")));
-				}
-			}).setNegativeButton("不要", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int whichButton) {
-					startActivity(new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS));
-				}
-			}).show();
+			new AlertDialog.Builder(this).setTitle("尚未擁有對外連線能力或網路不穩定").setMessage("請問是否需要開啟瀏覽器進行帳網路號密碼驗證！！")
+					.setPositiveButton("要", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int whichButton) {
+							startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.stu.edu.tw")));
+						}
+					}).setNegativeButton("不要", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int whichButton) {
+							startActivity(new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS));
+						}
+					}).show();
 
 			if (lodeing != null)
 				lodeing.dismiss();
@@ -80,6 +82,18 @@ public class News extends Activity {
 		findViews();
 		lodeing = ProgressDialog.show(this, getString(R.string.Lodeing), getString(R.string.LodeingContext));
 
+		listNews.setOnItemClickListener(new OnItemClickListener() {
+
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+				String url = "http://www.stu.edu.tw/news/";
+				String urlData = newsData.get(arg2).get("id");
+				Intent browser = new Intent(Intent.ACTION_VIEW, Uri.parse(url + urlData.substring(urlData.indexOf(":\"") + 2, urlData.length() - 2)
+						+ ".html"));
+				startActivity(browser);
+
+			}
+
+		});
 		new Thread() {
 			public void run() {
 				if (checkIntrent()) {

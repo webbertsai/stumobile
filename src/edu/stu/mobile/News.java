@@ -166,4 +166,9 @@ public class News extends Activity {
 		}
 	}
 
+	public void onBreak(View v) {
+		System.out.println("aaaaaaaaaa");
+		finish();
+	}
+
 }

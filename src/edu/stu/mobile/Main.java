@@ -13,9 +13,12 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
@@ -31,16 +34,12 @@ public class Main extends Activity implements OnPageChangeListener {
 	private ViewFlipper panel;
 	private LinearLayout pageNum;
 	private List<View> functionPage;
-	private String PanelUrls[] = {
-			"http://freshman.stu.edu.tw/", "http://ccds2012.stu.edu.tw/"
-	};
+	private String PanelUrls[] = { "http://freshman.stu.edu.tw/", "http://ccds2012.stu.edu.tw/" };
 	private final String TAG = "Main";
 	private int CurrentPag = 0;
 
 	private void initPanel() {
-		int PanelImages[] = {
-				R.drawable.a1, R.drawable.a2
-		};
+		int PanelImages[] = { R.drawable.a1, R.drawable.a2 };
 		// 動畫輪播更換頻率 (ms)
 		int rateFlash = 5000;
 		panel.setInAnimation(this, R.anim.in_leftright);
@@ -128,16 +127,14 @@ public class Main extends Activity implements OnPageChangeListener {
 	 */
 	private void initFunctionMenuitem() {
 		// 各功能Icon
-		int FunctionMenuIcon[] = {
-				R.drawable.ext_table,
-		};
+		int FunctionMenuIcon[] = { R.drawable.ext_table, };
 
 		// 個功能名稱 （建議使用 Strings.xml 新增，以便多國語系使用）
-		String FunctionMenuText[] = {
-				getString(R.string.ext_table),
-		};
+		String FunctionMenuText[] = { getString(R.string.ext_table), };
 
-		setFunctionMenuData(FunctionMenuIcon, FunctionMenuText);
+		Class Purpose[] = { Main.class };
+
+		setFunctionMenuData(FunctionMenuIcon, FunctionMenuText, Purpose);
 	}
 
 	/**
@@ -189,22 +186,21 @@ public class Main extends Activity implements OnPageChangeListener {
 		LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 		page.setLayoutParams(lp);
 		page.setAdapter(new MainItem(this, FunctionMenuData, ResolutionUtils.getPixelsHeight(this) / 800, ResolutionUtils.getPixelsWidth(this) / 480));
-		// gridview.setOnItemClickListener(clickFuncItem());
 
 		return page;
 	}
 
-	private void setFunctionMenuData(int[] FunctionMenuIcon, String[] FunctionMenuText) {
-		if (FunctionMenuIcon == null || FunctionMenuText == null) {
+	private void setFunctionMenuData(int[] FunctionMenuIcon, String[] FunctionMenuText, Class[] Purpose) {
+		if (FunctionMenuIcon == null || FunctionMenuText == null || Purpose == null) {
 			return;
 		}
 
-		if (FunctionMenuIcon.length == 0 || FunctionMenuText.length == 0) {
+		if (FunctionMenuIcon.length == 0 || FunctionMenuText.length == 0 || Purpose.length == 0) {
 			return;
 		}
 
 		// icon 與 title 相同數量才會新增
-		if (FunctionMenuText.length != FunctionMenuIcon.length) {
+		if (FunctionMenuText.length != FunctionMenuIcon.length && FunctionMenuIcon.length != Purpose.length) {
 			return;
 		}
 
@@ -223,6 +219,7 @@ public class Main extends Activity implements OnPageChangeListener {
 				HashMap<String, Object> index = new HashMap<String, Object>();
 				index.put("title", FunctionMenuText[FunctionMenuPageData]);
 				index.put("icon", FunctionMenuIcon[FunctionMenuPageData]);
+				index.put("click", Purpose[FunctionMenuPageData]);
 				FunctionMenuData.add(index);
 			}
 
@@ -252,7 +249,8 @@ public class Main extends Activity implements OnPageChangeListener {
 	}
 
 	private void init() {
-		about.setText(getString(R.string.stu_name) + " | " + getString(R.string.stu_zipcode) + getString(R.string.stu_address) + " | TEL:" + getString(R.string.stu_phnoe));
+		about.setText(getString(R.string.stu_name) + " | " + getString(R.string.stu_zipcode) + getString(R.string.stu_address) + " | TEL:"
+				+ getString(R.string.stu_phnoe));
 		functionPage = new ArrayList<View>();
 		initFunctionMenuitem();
 		initPanel();
@@ -280,7 +278,7 @@ public class Main extends Activity implements OnPageChangeListener {
 			Intent PageIntent = new Intent();
 			PageIntent.setClass(this, Page);
 			PageIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-			startActivity(new Intent(this, Page));
+			startActivity(PageIntent);
 		}
 	}
 

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,12 +18,14 @@ public class MainItem extends BaseAdapter {
 	private LayoutInflater inflater;
 	private List<HashMap<String, Object>> data;
 	private double errorW, errorH;
+	private Context context;
 
 	MainItem(Context context, List<HashMap<String, Object>> data, double errorW, double errorH) {
 		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		this.data = data;
 		this.errorH = errorH;
 		this.errorW = errorW;
+		this.context = context;
 	}
 
 	public int getCount() {
@@ -48,11 +51,16 @@ public class MainItem extends BaseAdapter {
 			view.setOnTouchListener(new OnTouchListener() {
 
 				public boolean onTouch(View v, MotionEvent event) {
-					//Log.w("TouchEvent",""+v.getId()+"==="+event.getAction());
+					// Log.w("TouchEvent",""+v.getId()+"==="+event.getAction());
 					if (event.getAction() == MotionEvent.ACTION_DOWN) {
 						down.findViewById(R.id.down).setVisibility(View.VISIBLE);
-					} else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL){
+					} else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
 						down.findViewById(R.id.down).setVisibility(View.GONE);
+						Intent intent = new Intent();
+						intent.setClass(context, Ext.class);
+						intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+						context.startActivity(intent);
+						
 					}
 					return true;
 				}

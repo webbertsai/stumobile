@@ -25,20 +25,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
         <activity
             android:name=".News"
             android:screenOrientation="portrait" >
         </activity>
+        
         <activity
-            android:name=".StumobileActivity"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name=".FreshmanMain"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name=".FreshmanToApplicationListview"
+            android:name=".Ext"
             android:screenOrientation="portrait" >
         </activity>
     </application>

@@ -38,22 +38,19 @@
         android:orientation="horizontal" >
 
         <Button
-            android:layout_width="0"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/red" />
 
         <Button
-            android:layout_width="0"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/transparent" />
 
         <Button
-            android:layout_width="0"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/transparent" />
+            android:background="@color/red" />
     </LinearLayout>
 
 </LinearLayout>

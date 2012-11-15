@@ -26,9 +26,12 @@
     <string name="FreshmanToApplication">新生可申請事項之流程</string>
     <string name="Lodeing">資料載入中請稍後</string>
     <string name="LodeingContext">更新速度與網路速度有關係，請耐心等候。</string>
-    
-    
+
+    <!-- ext -->
+	<string name="ext">分機表</string>
+
+
     <!-- Main FunctionMenuText -->
     <string name="ext_table">分機表</string>
-    
+
 </resources>

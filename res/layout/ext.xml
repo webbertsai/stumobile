@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.2"
+        android:background="@drawable/title_bar" >
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.5" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="2"
+            android:orientation="vertical" >
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                style="@style/Text_Bigtitle"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:background="@drawable/break_button_down"
+                android:clickable="true"
+                android:gravity="center"
+                android:onClick="onBreak"
+                android:paddingLeft="10dp"
+                android:text="@string/barek"
+                android:textColor="@android:color/white" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="2" />
+
+        <TextView
+            style="@style/Text_Tiele"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="5"
+            android:gravity="center_vertical"
+            android:text="@string/news"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:background="@drawable/title_level" />
+
+    <ListView
+        android:id="@+id/list_news"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9.5"
+        android:background="@color/red" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.5"
+        android:background="@color/transparent" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/button_green"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <View
+                android:layout_width="40dip"
+                android:layout_height="40dip"
+                android:background="@drawable/news" />
+
+            <TextView
+                style="@style/Text_Subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/news"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/button_blue"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <View
+                android:layout_width="40dip"
+                android:layout_height="40dip"
+                android:background="@drawable/home" />
+
+            <TextView
+                style="@style/Text_Subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/home"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/button_green"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <View
+                android:layout_width="40dip"
+                android:layout_height="40dip"
+                android:background="@drawable/freshman" />
+
+            <TextView
+                style="@style/Text_Subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/freshman"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

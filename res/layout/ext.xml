@@ -64,7 +64,7 @@
         android:background="@drawable/ext_title" />
 
     <ListView
-        android:id="@+id/list_news"
+        android:id="@+id/floor_list"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="5.5"

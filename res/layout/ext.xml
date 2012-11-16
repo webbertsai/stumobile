@@ -77,11 +77,13 @@
         android:background="@color/transparent" >
 
         <LinearLayout
+            android:id="@+id/news"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:background="@drawable/button_green"
             android:gravity="center"
+            android:onClick="movePage"
             android:orientation="vertical" >
 
             <View

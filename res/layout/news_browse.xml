@@ -29,28 +29,38 @@
         android:text="aaaaaaaaaaaaaaaaa"
         android:textColor="#0E7092" />
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="#FFF"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="#0E7092"
         android:orientation="horizontal" >
 
         <Button
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/red" />
+            android:layout_alignParentLeft="true"
+            android:background="#00000000"
+            android:text="上一則"
+            android:textColor="@android:color/white" />
 
         <Button
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/transparent" />
+            android:layout_centerInParent="true"
+            android:background="#00000000"
+            android:text="分享"
+            android:textColor="#F4E829" />
 
         <Button
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/red" />
-    </LinearLayout>
+            android:layout_alignParentRight="true"
+            android:background="#00000000"
+            android:text="下一則"
+            android:textColor="@android:color/white" />
+    </RelativeLayout>
 
 </LinearLayout>

@@ -85,15 +85,18 @@ public class News extends Activity {
 		listNews.setOnItemClickListener(new OnItemClickListener() {
 
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+
+				String key[] = { "title" };
 				String url = "http://www.stu.edu.tw/news/";
 				String urlData = newsData.get(arg2).get("id");
-				Intent browser = new Intent(Intent.ACTION_VIEW, Uri.parse(url + urlData.substring(urlData.indexOf(":\"") + 2, urlData.length() - 2)
-						+ ".html"));
-				startActivity(browser);
+				NewsDataJsonParse newsData = new NewsDataJsonParse(url + urlData.substring(urlData.indexOf(":\"") + 2, urlData.length() - 2)
+						+ ".json");
+				newsData.start();
 
 			}
 
 		});
+
 		new Thread() {
 			public void run() {
 				if (checkIntrent()) {
@@ -107,6 +110,26 @@ public class News extends Activity {
 			}
 		}.start();
 
+	}
+
+	class NewsDataJsonParse extends Thread {
+		String url = "";
+		String message = "";
+		String title = "";
+
+		NewsDataJsonParse(String url) {
+			this.url = url;
+		}
+
+		public void run() {
+			super.run();
+			List<HashMap<String, String>> aa = ParseJson.parseJson("[" + ParseJson.getWebserviceJson(url) + "]", new String[] { "title", "comment" });
+			System.out.println(aa);
+		}
+
+		public String getTitle() {
+			return title;
+		}
 	}
 
 	@Override

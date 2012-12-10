@@ -282,7 +282,7 @@ public class News extends Activity {
 	}
 
 	public void onNext(View v) {
-		if (postition >= newsData.size()) {
+		if (postition >= newsData.size() - 1) {
 			Toast.makeText(this, "已經是最後的消息囉！", 0).show();
 			return;
 		}

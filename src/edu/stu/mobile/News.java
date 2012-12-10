@@ -3,6 +3,7 @@ package edu.stu.mobile;
 import java.util.HashMap;
 import java.util.List;
 
+import android.R.integer;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -14,23 +15,31 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import edu.stu.mobile.util.Internet;
 import edu.stu.mobile.util.ParseJson;
 
 public class News extends Activity {
+	private int postition = 0;;
 	private ListView listNews;
+	private LinearLayout context;
 	List<HashMap<String, String>> newsData;
 	private ProgressDialog lodeing;
+	private static Boolean browse = false;
 	private String[] dataKey = { "id", "title", "start_date", "senderdept", "sendername", "senderext" };
 	private static final int parseJsonEnd = 1;
+	private static final int parseNewsDataJsonEnd = 2;
 
 	private boolean checkIntrent() {
 		Internet internet = new Internet(this);
@@ -73,6 +82,7 @@ public class News extends Activity {
 
 	private void findViews() {
 		listNews = (ListView) findViewById(R.id.list_news);
+		context = (LinearLayout) findViewById(R.id.context);
 	}
 
 	@Override
@@ -85,13 +95,13 @@ public class News extends Activity {
 		listNews.setOnItemClickListener(new OnItemClickListener() {
 
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-
-				String key[] = { "title" };
 				String url = "http://www.stu.edu.tw/news/";
 				String urlData = newsData.get(arg2).get("id");
 				NewsDataJsonParse newsData = new NewsDataJsonParse(url + urlData.substring(urlData.indexOf(":\"") + 2, urlData.length() - 2)
 						+ ".json");
+				postition = arg2;
 				newsData.start();
+				listNews.setVisibility(View.GONE);
 
 			}
 
@@ -114,8 +124,6 @@ public class News extends Activity {
 
 	class NewsDataJsonParse extends Thread {
 		String url = "";
-		String message = "";
-		String title = "";
 
 		NewsDataJsonParse(String url) {
 			this.url = url;
@@ -123,13 +131,19 @@ public class News extends Activity {
 
 		public void run() {
 			super.run();
-			List<HashMap<String, String>> aa = ParseJson.parseJson("[" + ParseJson.getWebserviceJson(url) + "]", new String[] { "title", "comment" });
-			System.out.println(aa);
+			List<HashMap<String, String>> data = ParseJson.parseJson("[" + ParseJson.getWebserviceJson(url) + "]",
+					new String[] { "title", "comment" });
+			Message msg = new Message();
+			msg.what = parseNewsDataJsonEnd;
+
+			Bundle bundle = new Bundle();
+			bundle.putString("comment", data.get(0).get("comment"));
+			bundle.putString("title", data.get(0).get("title"));
+
+			msg.setData(bundle);
+			mHandler.sendMessage(msg);
 		}
 
-		public String getTitle() {
-			return title;
-		}
 	}
 
 	@Override
@@ -160,6 +174,24 @@ public class News extends Activity {
 				if (lodeing != null && lodeing.isShowing()) {
 					lodeing.dismiss();
 				}
+				break;
+
+			case parseNewsDataJsonEnd:
+
+				listNews.setVisibility(View.GONE);
+				final LayoutInflater inflater = getLayoutInflater();
+				final View browse = inflater.inflate(R.layout.news_browse, null);
+				TextView title = (TextView) browse.findViewById(R.id.title);
+				TextView massage = (TextView) browse.findViewById(R.id.context);
+				Bundle aBundle = msg.getData();
+				title.setText(aBundle.getString("title"));
+				massage.setText(aBundle.getString("comment").replaceAll("<[.[^<]]*>", "").replace("&nbsp;", " "));
+				browse.setLayoutParams(new LayoutParams(-1, -1));
+				context.addView(browse);
+				if (News.browse) {
+					context.removeViewAt(1);
+				}
+				News.browse = true;
 				break;
 			}
 		};
@@ -205,7 +237,61 @@ public class News extends Activity {
 	}
 
 	public void onBreak(View v) {
-		finish();
+		if (browse) {
+			context.removeViewAt(1);
+			listNews.setVisibility(View.VISIBLE);
+			browse = false;
+		} else {
+			finish();
+		}
 	}
 
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			if (browse) {
+				context.removeViewAt(1);
+				listNews.setVisibility(View.VISIBLE);
+				browse = false;
+			} else {
+				finish();
+			}
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
+	public void onNews(View v) {
+		if (browse) {
+			listNews.setVisibility(View.VISIBLE);
+			context.removeViewAt(1);
+			browse = false;
+		}
+	}
+
+	public void onPrevious(View v) {
+		if (postition <= 0) {
+			Toast.makeText(this, "已經是最新消息囉！", 0).show();
+			return;
+		}
+		String url = "http://www.stu.edu.tw/news/";
+		String urlData = newsData.get(--postition).get("id");
+		NewsDataJsonParse newsData = new NewsDataJsonParse(url + urlData.substring(urlData.indexOf(":\"") + 2, urlData.length() - 2) + ".json");
+		browse = true;
+		newsData.start();
+		return;
+
+	}
+
+	public void onNext(View v) {
+		if (postition >= newsData.size()) {
+			Toast.makeText(this, "已經是最後的消息囉！", 0).show();
+			return;
+		}
+		String url = "http://www.stu.edu.tw/news/";
+		String urlData = newsData.get(++postition).get("id");
+		NewsDataJsonParse newsData = new NewsDataJsonParse(url + urlData.substring(urlData.indexOf(":\"") + 2, urlData.length() - 2) + ".json");
+		browse = true;
+		newsData.start();
+		return;
+
+	}
 }

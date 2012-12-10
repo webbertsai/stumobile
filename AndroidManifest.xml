@@ -36,10 +36,6 @@
             android:name=".Ext"
             android:screenOrientation="portrait" >
         </activity>
-        <activity
-            android:name=".NewsBrowse"
-            android:screenOrientation="portrait" >
-        </activity>
     </application>
 
 </manifest>

@@ -36,6 +36,10 @@ public class CacheHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		Log.i(tag, "onCreate()");
+		db.execSQL("CREATE TABLE news (" +
+				"news_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
+		);
+		
 		db.execSQL("CREATE TABLE building (" +
 				"building_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
 				"building_code VARCHAR NOT NULL," +

@@ -88,7 +88,7 @@ public class News extends Activity {
 				String url = "http://www.stu.edu.tw/news/";
 				String urlData = newsData.get(arg2).get("id");
 				Intent browser = new Intent(Intent.ACTION_VIEW, Uri.parse(url + urlData.substring(urlData.indexOf(":\"") + 2, urlData.length() - 2)
-						+ ".html"));
+						+ ".json"));
 				startActivity(browser);
 
 			}
